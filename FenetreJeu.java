@@ -29,9 +29,10 @@ import java.util.*;
 
 		// Les Widgets à déclarer en dehors du constructeur
 		ImageIcon doodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png");
+		ImageIcon pallier= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\pallier.png");
 		JLabel Doodle = new JLabel(doodle);
 		private int x = 15 ; //postion initiale en largeur
-		private int y= 500 ; // hauteur initiale du doodle
+		private int y= 900 ; // hauteur initiale du doodle
 		int newWidth; // initialisation largeur Fenetre de jeu
 		int newHeight;// initialisation longeur Fenetre de jeu
 
@@ -55,6 +56,13 @@ import java.util.*;
 			Doodle.setBounds(x, y, 60, 60);
 			Doodle.setLayout(null);
 
+			//ajout d'un palliers
+			//Redimensionnement des palliers
+			pallier = new ImageIcon(pallier.getImage().getScaledInstance(58, 15, Image.SCALE_DEFAULT)); // permet de redimensionner le pallier si besoin
+			JLabel Pallier = new JLabel(pallier);
+			Pallier.setBounds(100, 100, 500, 500);
+			Pallier.setLayout(null);
+
 			/**
 			 Mon panneau Global
 			 */
@@ -63,6 +71,7 @@ import java.util.*;
 			panneauGlobal.setLayout(null);
 			add(panneauGlobal);
 			panneauGlobal.add(Doodle);
+			panneauGlobal.add(Pallier);
 
 			//Redimensionnement de l'image de fond pour ajustement à la fenêtre
 			ImageIcon fond = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Fond.png");
@@ -73,10 +82,8 @@ import java.util.*;
 			Fond.setBounds(0, 0, 1000, 2000);
 			panneauGlobal.add(Fond);
 
-			// Pour créer la seconde fenêtre qui est invisible à sa création
 
-			//maFenetreDemarrage = new FenetreDemarrage();
-			//maFenetreDemarrage.setVisible(true);
+			//Test ajout plusieurs palliers aléatoirement le long de la fenêtre de jeu immobile
 
 
 			// Pour rendre la fenêtre visible
