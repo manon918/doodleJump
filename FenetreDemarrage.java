@@ -61,9 +61,6 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
         id.setBounds(15,70,330,50);
         Titre.add(id);
 
-
-
-
         /**
          * Mon panneau Global
          */
@@ -87,7 +84,7 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
     public void actionPerformed (ActionEvent e){
         if (e.getSource()== monBoutonDemarrer){
             maFenetreJeu.setVisible(true);
-            }
         }
     }
+}
 
