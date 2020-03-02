@@ -28,10 +28,12 @@ import java.util.*;
 	public  class FenetreJeu extends JFrame implements KeyListener{
 
 		// Les Widgets à déclarer en dehors du constructeur
-		ImageIcon doodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
-		ImageIcon pallier= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\pallier.png");
+		// ImageIcon doodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
+		ImageIcon doodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); 		//à modifier selon l'emplacement de l'image sur votre ordi et le nom
+		// ImageIcon pallier= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\pallier.png");				//à modifier selon l'emplacement de l'image sur votre ordi et le nom
+		ImageIcon pallier= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\p-green.png");		//à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		JLabel Doodle = new JLabel(doodle);
-		private int x; //postion initiale en largeur
+		private int x; //position initiale en largeur
 		private int y; // hauteur initiale du doodle
 		int newWidth; // initialisation largeur Fenetre de jeu
 		int newHeight;// initialisation longeur Fenetre de jeu
@@ -78,12 +80,12 @@ import java.util.*;
 			Pallierf.setLayout(null);
 
 
-			//ajout d'un palliers postion aléatoire
+			//ajout d'un palliers position aléatoire
 			//Redimensionnement des palliers
 			pallier = new ImageIcon(pallier.getImage().getScaledInstance(58, 15, Image.SCALE_DEFAULT)); // permet de redimensionner le pallier si besoin
 			JLabel Palliera = new JLabel(pallier);
-			int a = (int) (Math.random()*2000-1); // (panneauGlobal.getHeight()));
-			int b = (int) (Math.random()*1000-1); //(panneauGlobal.getWidth()));
+			int a = (int) (Math.random()*1000-1); // (panneauGlobal.getHeight()));
+			int b = (int) (Math.random()*900-1); //(panneauGlobal.getWidth()));
 			Palliera.setBounds(b, a, 100, 100);
 			Palliera.setLayout(null);
 
@@ -93,8 +95,8 @@ import java.util.*;
 			panneauGlobal.add(Palliera);
 
 			//Redimensionnement de l'image de fond pour ajustement à la fenêtre
-			ImageIcon fond = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Fond.png");
-
+			//ImageIcon fond = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Fond.png");		//à modifier selon l'emplacement de l'image sur votre ordi et le nom
+			ImageIcon fond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");       		//à modifier selon l'emplacement de l'image sur votre ordi et le nom
 			fond = new ImageIcon(fond.getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_DEFAULT));
 			JLabel Fond = new JLabel(fond);
 			Fond.setBounds(0, 0, newWidth, newHeight);
