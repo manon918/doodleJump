@@ -1,4 +1,8 @@
-public class element {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class element extends JFrame {
 
     // *************parametres communs a tous les elements (doodle, plate-formes, monstre)*******************
     protected int x;
@@ -13,11 +17,11 @@ public class element {
         this.width = width;
         this.heigth = heigth;
     }
-	
-	public element (int x, int y){
-		this.x= x;
-		this.y= y;
-	}
+    public element (int x, int y){
+        this.x= x;
+        this.y= y;
+    }
+
     //**********************************************getters****************************************************
     public int getX() {
         return x;
