@@ -13,7 +13,11 @@ public class element {
         this.width = width;
         this.heigth = heigth;
     }
-
+	
+	public element (int x, int y){
+		this.x= x;
+		this.y= y;
+	}
     //**********************************************getters****************************************************
     public int getX() {
         return x;
