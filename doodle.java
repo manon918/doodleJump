@@ -14,7 +14,7 @@ public class doodle extends element {
         this.width = 60;
         this.heigth = 60;
         vitesseX = 0;
-        vitesseY = 10;//c est un exemple je voudrais que la vitesse initiale fasse comme s'il y avait un saut au debut comme dans le vrai jeu
+        vitesseY = 40;//c est un exemple je voudrais que la vitesse initiale fasse comme s'il y avait un saut au debut comme dans le vrai jeu
     }
 
     //**************************************getters sur les nouveaux parametres********************************************************
@@ -56,6 +56,8 @@ public class doodle extends element {
 
     //*******************************************méthode pour deplacer le doodle*********************************
     public void bouge(){
+        vitesseY = 20;
+
 
         //********************axe X *****************************************************************************
 

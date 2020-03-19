@@ -17,9 +17,9 @@ public class element extends JFrame {
         this.width = width;
         this.heigth = heigth;
     }
-    public element (int x, int y){
-        this.x= x;
-        this.y= y;
+    public element (int width, int heigth){
+        this.width= width;
+        this.heigth= heigth;
     }
 
     //**********************************************getters****************************************************
