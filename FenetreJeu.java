@@ -23,28 +23,30 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.LinkedList;
 
 	public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 
+		LinkedList<JLabel>listePallier = new LinkedList<JLabel>();
 		// Les Widgets à déclarer en dehors du constructeur
 
 		ImageIcon ImageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon ImagePallier= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\pallier.png");
 		ImageIcon ImageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");
 		JLabel Doodle = new JLabel(ImageDoodle);
-		JLabel Palliera ;
+		JLabel Pallier= new JLabel(ImagePallier) ;
 		private int x; //postion initiale en largeur
 		private int y; // hauteur initiale du doodle
 		int newWidth; // initialisation largeur Fenetre de jeu
 		int newHeight;// initialisation longeur Fenetre de jeu
 		doodle monDoodle = new doodle(x,y);
-		element monPallier = new element(58,15);
+		pallier monPallier= new pallier(58,15);
 		int chrono=0;
 
 
 		public FenetreJeu() {
 		/** la fenêtre s'adapte à la taille de l'écran ordinateur*/
-			Timer mt= new Timer(1000,this);
+			Timer mt= new Timer(70,this); // réglage timer
 			mt.start();
 			Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 			int hauteur = (int)dimension.getHeight();
@@ -70,26 +72,20 @@ import java.awt.event.*;
 			newHeight = panneauGlobal.getHeight();
 
 
+			JLabel test = new JLabel("pallier" + listePallier.size());
+			test.setBounds(0, 0, 100, 200);
+			panneauGlobal.add(test);
+
+
 			//Ajout doodle
 			//Redimensionnement du doodle
-			x = newWidth/2;
-			y = newHeight/4;
+			x =  10; //newWidth/2;
+			y =  10 ; //newHeight/4;
 
 			ImageDoodle = new ImageIcon(ImageDoodle.getImage().getScaledInstance(monDoodle.getWidth(), monDoodle.getHeigth(), Image.SCALE_DEFAULT));
 			Doodle.setBounds(x, y, 60, 60);
 			Doodle.setLayout(null);
-			for (int i =0; i<10; i ++){
-				y=y+monDoodle.getVitesseY();
-				Doodle.setLocation(x, y);
 
-			}
-
-			//ajout d'un pallier fixe
-			//Redimensionnement des palliers
-			ImagePallier= new ImageIcon(ImagePallier.getImage().getScaledInstance(monPallier.getWidth(), monPallier.getHeigth(), Image.SCALE_DEFAULT)); // permet de redimensionner le pallier si besoin
-			JLabel Pallierf = new JLabel(ImagePallier);
-			Pallierf.setBounds(x-5, y+100, 58, 15);
-			Pallierf.setLayout(null);
 
 
 			//ajout d'un palliers postion aléatoire
@@ -99,18 +95,17 @@ import java.awt.event.*;
 			int calculNbPallier= (int)(panneauGlobal.getHeight()*pourcentage);
 			for (int i=0 ; i<calculNbPallier; i++) {
 				ImagePallier = new ImageIcon(ImagePallier.getImage().getScaledInstance(monPallier.getWidth(), monPallier.getHeigth(), Image.SCALE_DEFAULT)); // permet de redimensionner le pallier si besoin
-				Palliera = new JLabel(ImagePallier);
+				Pallier= new JLabel (ImagePallier);
 				int a = (int) (Math.random() * (panneauGlobal.getHeight()) - 60) ;
 				int b = (int) (Math.random() * (panneauGlobal.getWidth()) - 15);
-				Palliera.setBounds(b, a, monPallier.getWidth(), monPallier.getHeigth());
-				Palliera.setLayout(null);
-				panneauGlobal.add(Palliera);
+				Pallier.setBounds(b, a, monPallier.getWidth(), monPallier.getHeigth());
+				Pallier.setLayout(null);
+				panneauGlobal.add(Pallier);
+				listePallier.add(Pallier);
 			}
 
-
 			panneauGlobal.add(Doodle);
-			panneauGlobal.add(Pallierf);
-
+			panneauGlobal.add (Pallier);
 
 			//Redimensionnement de l'image de fond pour ajustement à la fenêtre
 
@@ -120,7 +115,6 @@ import java.awt.event.*;
 			Fond.setBounds(0, 0, newWidth, newHeight);
 			panneauGlobal.add(Fond);
 
-
 			//Test ajout plusieurs palliers aléatoirement le long de la fenêtre de jeu immobile
 
 
@@ -128,14 +122,36 @@ import java.awt.event.*;
 			this.setVisible(false);
 
 		}
+
+		public void gravite (){
+			int grav = 15;
+			int vitesse = monDoodle.getVitesseY();
+			vitesse = vitesse + grav;
+			y = y + vitesse;
+			Doodle.setLocation(x, y);
+
+		}
+
+		public void collision (){
+			//if (){
+			//	saut();
+			//}
+
+		}
+		public void saut (){
+			monDoodle.setVitesseY(10);
+		}
 		/** saut constant du doodle relié au timer **/
 		public void actionPerformed(ActionEvent e) {
 			this.setTitle("DoodleJump " + String.valueOf(chrono)); // le chrono s'afficha à coté du titre de la fenêtre de jeu
+			gravite();
 			chrono++;
-			if (monDoodle.y == monPallier.y) { // rebond sur un pallier ne fonctionne pas
+
+
+			/*if (monDoodle.y == monPallier.y) { // rebond sur un pallier ne fonctionne pas
 				y = y - monDoodle.getVitesseY();
 				Doodle.setLocation(x, y);
-			}
+			}*/
 		}
 
 		public void keyPressed (KeyEvent e){
