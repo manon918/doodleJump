@@ -24,27 +24,26 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
 
         this.setTitle("DoodleJump ");
         this.setSize(500,500);
-        // Pour placer la fenêtre au centre de l'écran
-        //~ this.setLocationRelativeTo(null);
-        this.setLocation(300,200);
-        // Pour empêcher le redimensionnement de la fenêtre
-        //~ this.setResizable(false);
-        // Pour permettre la fermeture de la fenêtre lors de l'appui sur la croix rouge
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.setLocationRelativeTo(null); // Pour placer la fenêtre au centre de l'écran
+        //this.setLocation(300,200);
+        this.setResizable(false); // Pour empêcher le redimensionnement de la fenêtre
+
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Pour permettre la fermeture de la fenêtre lors de l'appui sur la croix rouge
 
 
         /**
          * Mon panneau 1 Titre
          */
-        JPanel Titre = new JPanel();
-        Titre.setBounds(20,20,500,900);
-        Titre.setLayout(null);
-        Titre.setBackground(Color.white);
+        JPanel titre = new JPanel();
+        titre.setBounds(20,20,500,900);
+        titre.setLayout(null);
+        titre.setBackground(Color.white);
 
         JLabel d = new JLabel();
         d.setText("DOODLEJUMP");
         d.setBounds(30,5,100,100);
-        Titre.add(d);
+        titre.add(d);
 
 
         monBoutonDemarrer = new JButton("Démarrer");
@@ -54,20 +53,20 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
 
         /* branchement de l'écouteur*/
         monBoutonDemarrer.addActionListener(this);
-        Titre.add(monBoutonDemarrer);
+        titre.add(monBoutonDemarrer);
 
         //pour entre le nom du joueur + ajouter fenêtre dialogue
         id = new JTextField();
         id.setBounds(15,70,330,50);
-        Titre.add(id);
+        titre.add(id);
 
-        /**
+        /*
          * Mon panneau Global
          */
         JPanel panneauGlobal = new JPanel();
         panneauGlobal.setBounds(0,0,500,500);
         panneauGlobal.setLayout(null);
-        panneauGlobal.add(Titre);
+        panneauGlobal.add(titre);
 
         this.add(panneauGlobal);
 
