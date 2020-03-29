@@ -8,18 +8,18 @@ public class Doodle extends Element {
     protected int vitesseX;
     protected int vitesseY;
     protected int width = 60;
-    protected int heigth = 60;
+    protected int height = 60;
 
 
     //************************************constructeur***********************************************************
     public Doodle(int x, int y, JLabel doodle){
         super(x,y, doodle);
-        this.heigth = 60;
+        this.height = 60;
         this.width = 60;
-        doodle.setBounds(x,y,width, heigth);
+        doodle.setBounds(x,y,width, height);
         doodle.setLayout(null);
         vitesseX = 0;
-        vitesseY = 10;//c est un exemple je voudrais que la vitesse initiale fasse comme s'il y avait un saut au debut comme dans le vrai jeu
+        vitesseY = -25;//c est un exemple je voudrais que la vitesse initiale fasse comme s'il y avait un saut au debut comme dans le vrai jeu
     }
 
     //**************************************getters sur les nouveaux parametres********************************************************
@@ -31,8 +31,8 @@ public class Doodle extends Element {
         return vitesseY;
     }
 
-    public int getHeigth(){
-        return heigth;
+    public int getHeight(){
+        return height;
     }
 
     public int getWidth(){
@@ -53,16 +53,28 @@ public class Doodle extends Element {
         this.width = width;
     }
 
-    public void setHeigth(int heigth) {
-        this.heigth = heigth;
+    public void setHeight(int height) {
+        this.height = height;
     }
 
 
 
     //*******************************************méthode pour deplacer le doodle*********************************
-    public void bouge() {
-
-
-
+    public void deplaceDoodle(){
+        int gravite= 1;
+        y+= vitesseY;
+        vitesseY+= gravite;
     }
+
+    public void saut (){
+		vitesseY= -25;
+    }
+
+
 }
+
+
+
+
+
+

@@ -8,7 +8,7 @@ public class Element extends JFrame {
     protected int x;
     protected int y;
     protected int width;
-    protected int heigth;
+    protected int height;
     protected JLabel support;
 
     // *********************************************constructeur**********************************************
@@ -16,28 +16,21 @@ public class Element extends JFrame {
         this.support=support;
     }
     public Element (int x, int y , JLabel support){
-        this.width= width;
-        this.heigth= heigth;
+        this.x= x;
+        this.y= y;
         this.support=support;
     }
 
 
     //**********************************************getters****************************************************
-    public int getX() {
-        return x;
-    }
+    public int getX() { return x; }
 
-    public int getY() {
-        return y;
-    }
+    public int getY() { return y; }
 
-    public int getWidth() {
+    public int getWidth() { return width;  }
 
-        return width;
-    }
-
-    public int getHeigth() {
-        return heigth;
+    public int getHeight() {
+        return height;
     }
 
     //**************************setters, ca permet de réécrire les variables (pas besoin pour la largeur et la hauteur)****************************************
