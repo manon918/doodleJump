@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class Doodle extends Element {
 
@@ -8,11 +9,15 @@ public class Doodle extends Element {
     protected int vitesseY;
     protected int width = 60;
     protected int heigth = 60;
+
+
     //************************************constructeur***********************************************************
-    public Doodle(int x, int y){
-        super(x,y);
-        this.width = 60;
+    public Doodle(int x, int y, JLabel doodle){
+        super(x,y, doodle);
         this.heigth = 60;
+        this.width = 60;
+        doodle.setBounds(x,y,width, heigth);
+        doodle.setLayout(null);
         vitesseX = 0;
         vitesseY = 10;//c est un exemple je voudrais que la vitesse initiale fasse comme s'il y avait un saut au debut comme dans le vrai jeu
     }
@@ -48,19 +53,16 @@ public class Doodle extends Element {
         this.width = width;
     }
 
-    public void setHeigth(int Heigth) {
+    public void setHeigth(int heigth) {
         this.heigth = heigth;
     }
 
 
 
     //*******************************************méthode pour deplacer le doodle*********************************
-    public void bouge(){
-
-        vitesseY = 20;
+    public void bouge() {
 
 
-        //********************axe X *****************************************************************************
 
     }
 }

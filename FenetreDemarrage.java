@@ -60,8 +60,7 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
         id.setBounds(15,70,330,50);
         titre.add(id);
 
-        /*
-         * Mon panneau Global
+        /** Mon panneau Global
          */
         JPanel panneauGlobal = new JPanel();
         panneauGlobal.setBounds(0,0,500,500);

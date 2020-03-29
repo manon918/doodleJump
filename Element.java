@@ -9,18 +9,18 @@ public class Element extends JFrame {
     protected int y;
     protected int width;
     protected int heigth;
+    protected JLabel support;
 
     // *********************************************constructeur**********************************************
-    public Element(int x, int y, int width, int heigth){
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.heigth = heigth;
+    public Element(JLabel support){
+        this.support=support;
     }
-    public Element (int width, int heigth){
+    public Element (int x, int y , JLabel support){
         this.width= width;
         this.heigth= heigth;
+        this.support=support;
     }
+
 
     //**********************************************getters****************************************************
     public int getX() {

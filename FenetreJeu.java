@@ -27,7 +27,7 @@ import java.util.LinkedList;
 
 	public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 
-		LinkedList<JLabel>listePallier = new LinkedList<JLabel>(); // initialisation de la liste contenant les palliers
+		LinkedList<Pallier> listePallier = new LinkedList<Pallier>(); // initialisation de la liste contenant les palliers
 
 		// Les Widgets à déclarer en dehors du constructeur
 
@@ -38,22 +38,22 @@ import java.util.LinkedList;
 		JLabel labelDoodle = new JLabel(imageDoodle);
 		JLabel labelPallier= new JLabel(imagePallier) ;
 
-		private int x; //postion initiale doodle en largeur
-		private int y; // position initiale doodle en hauteur
+		private int x=10; //postion initiale doodle en largeur
+		private int y=200; // position initiale doodle en hauteur
 
 		final int WIDTH=1000; // initialisation largeur Fenetre de jeu
 		final int HEIGHT=2000;// initialisation longeur Fenetre de jeu
 
-		Doodle monDoodle = new Doodle(x,y); //creation objet doodle
+		Doodle monDoodle = new Doodle(x, y, labelDoodle); //creation objet doodle
+		Pallier monPallier= new Pallier(labelPallier); //creation objet pallier
 
-		Pallier monPallier= new Pallier(58,15);
 		int chrono=0; //initialisation timer
-
 
 		public FenetreJeu() {
 			Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();// la fenêtre s'adapte à la taille de l'écran ordinateur
 			Timer mt= new Timer(70,this); // réglage timer // initialisation du timer
 			mt.start();
+
 			this.setSize(WIDTH, HEIGHT);
 			this.setLocationRelativeTo(null);// Place la fenêtre au centre de l'écran
 			this.setResizable(false);// Empêche le redimensionnement de la fenêtre
@@ -66,20 +66,12 @@ import java.util.LinkedList;
 			panneauGlobal.setBounds(0, 0, WIDTH, HEIGHT);
 			panneauGlobal.setLayout(null);
 			add(panneauGlobal);
+			panneauGlobal.add(labelDoodle);
 
 
 			JLabel test = new JLabel("pallier" + listePallier.size()); //test nombre de pallier dans la liste
 			test.setBounds(0, 0, 100, 200);
 			panneauGlobal.add(test);
-
-
-			//Ajout doodle
-			x =  100;
-			y =  100 ;
-			imageDoodle = new ImageIcon(imageDoodle.getImage().getScaledInstance(monDoodle.getWidth(), monDoodle.getHeigth(), Image.SCALE_DEFAULT));//Redimensionnement de l'image doodle
-			labelDoodle.setBounds(x, y, monDoodle.getWidth(), monDoodle.getHeigth());
-			labelDoodle.setLayout(null);
-			panneauGlobal.add(labelDoodle);
 
 
 			//ajout d'un palliers postion aléatoire
@@ -88,12 +80,13 @@ import java.util.LinkedList;
 			for (int i=0 ; i<calculNbPallier; i++) {
 				imagePallier = new ImageIcon(imagePallier.getImage().getScaledInstance(monPallier.getWidth(), monPallier.getHeigth(), Image.SCALE_DEFAULT)); // permet de redimensionner le pallier si besoin
 				labelPallier= new JLabel (imagePallier);
+				monPallier= new Pallier(labelPallier);
 				int a = (int) (Math.random() * HEIGHT) ;
 				int b = (int) (Math.random() * WIDTH);
 				labelPallier.setBounds(b, a, monPallier.getWidth(), monPallier.getHeigth());
 				labelPallier.setLayout(null);
 				panneauGlobal.add(labelPallier);
-				listePallier.add(labelPallier);
+				listePallier.add(monPallier);
 			}
 			// éliminer les palliers qui se superposent
 
@@ -103,7 +96,6 @@ import java.util.LinkedList;
 			JLabel labelFond = new JLabel(imageFond);
 			labelFond.setBounds(0, 0, WIDTH, HEIGHT);
 			panneauGlobal.add(labelFond);
-
 			this.setVisible(false);// Pour rendre la fenêtre visible
 
 		}
@@ -113,7 +105,7 @@ import java.util.LinkedList;
 			int vitesse = monDoodle.getVitesseY();
 			vitesse = vitesse + grav;
 			y = y + vitesse;
-			labelDoodle.setLocation(x, y);
+			labelDoodle.setLocation(x,y);
 
 		}
 
@@ -136,20 +128,18 @@ import java.util.LinkedList;
 			//collision();
 			chrono++;
 
-
-
 		}
 
 		public void keyPressed (KeyEvent e){
 			switch (e.getKeyCode()) {
 				case KeyEvent.VK_RIGHT:
-					// action fleche droite
+				// action fleche droite
 					if(x<WIDTH) {
 						x = x + 10;
 					}else {
 						x=0;
 					}
-					labelDoodle.setLocation(x + 10, y);
+					labelDoodle.setLocation(x , y);
 					break;
 				case KeyEvent.VK_LEFT:
 					// action flèche gauche
@@ -158,16 +148,16 @@ import java.util.LinkedList;
 					}else {
 						x=WIDTH;
 					}
-					labelDoodle.setLocation(x-10 , y );
+					labelDoodle.setLocation(x , y );
 					break;
 
-				/** appuyer sur la flèche du bas pour faire revenier doodle */
+				/** appuyer sur la flèche du bas pour faire revenir doodle */
 				case KeyEvent.VK_DOWN:
 					// action flèche bas
 					if(y>HEIGHT) {
 						y = 0;
 					}
-					labelDoodle.setLocation(x , y);
+					monDoodle.setLocation(x , y);
 					break;
 			}
 		}

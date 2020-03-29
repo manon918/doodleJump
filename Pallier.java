@@ -1,16 +1,24 @@
+import javax.swing.*;
+
 public class Pallier extends Element {
     //***********************************les 2 parametres de doodle pas dans element********************************
     protected int vitesseX;
     protected int vitesseY;
-    private int width = 60;
-    public int heigth = 60;
+    protected int width;
+    protected int heigth;
     //************************************constructeur***********************************************************
-    public Pallier(int x, int y){
-        super(x,y);
+    public Pallier(int x, int y, JLabel pallier){
+        super(x,y, pallier);
         this.width = 58;
         this.heigth = 15;
         vitesseX = 0;
         vitesseY = 40;//c est un exemple je voudrais que la vitesse initiale fasse comme s'il y avait un saut au debut comme dans le vrai jeu
+    }
+
+    public Pallier(JLabel labelPallier) {
+        super(labelPallier);
+        this.width = 58;
+        this.heigth = 15;
     }
 
     //**************************************getters sur les nouveaux parametres********************************************************
