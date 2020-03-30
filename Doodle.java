@@ -9,6 +9,12 @@ public class Doodle extends Element {
     protected int vitesseY;
     protected int width;
     protected int height;
+    protected int vitesseMaxY= 40;
+    protected int vitesseMaxX= 15;
+    protected boolean droite= false;
+    protected boolean gauche= false;
+    protected boolean stopDroite= false;
+    protected boolean stopGauche= false;
 
 
     //************************************constructeur***********************************************************
@@ -60,23 +66,48 @@ public class Doodle extends Element {
 
 
     //*******************************************méthode pour deplacer le doodle*********************************
-    public void deplaceDoodle(){
+    public void tombeDoodle(){
         int gravite= 1;
-        int vitesseMax= 40;
-        if(vitesseY< vitesseMax){
+        if(vitesseY< vitesseMaxY){
             y+= vitesseY;
             vitesseY+= gravite;
-        } else {vitesseY= vitesseMax;
+        } else {
+                vitesseY= vitesseMaxY;
                 y+= vitesseY;
             }
-
     }
 
     public void saut (){
 		vitesseY= -25;
     }
 
+    public void bougeX() {
+        if(droite) {
+            if (vitesseX < vitesseMaxX) {
+                vitesseX += 2;
+                x += vitesseX;
+            } else {
+                vitesseX = vitesseMaxX;
+                x += vitesseX;
+            }
+        }
 
+        if(gauche){
+            if (vitesseX > -vitesseMaxX) {
+                vitesseX -= 2;
+                x += vitesseX;
+            } else {
+                vitesseX = -vitesseMaxX;
+                x += vitesseX;
+            }
+        }
+        if(stopDroite) {
+            vitesseX=0;
+        }
+        if(stopGauche){
+            vitesseX=0;
+        }
+    }
 }
 
 

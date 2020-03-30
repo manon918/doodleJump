@@ -62,7 +62,7 @@ import java.util.LinkedList;
 
 		public FenetreJeu() {
 
-			Timer mt= new Timer(50,this); // réglage timer // initialisation du timer
+			Timer mt= new Timer(40,this); // réglage timer // initialisation du timer
 			mt.start();
 
 			this.setSize(WIDTH, HEIGHT);
@@ -118,44 +118,53 @@ import java.util.LinkedList;
 					}
 				}
 			}
+		}
 
+		public void checkSortieEcran(){
+			if(monDoodle.x>WIDTH) {
+				monDoodle.x=0;
+			}
+			if(monDoodle.x<0) {
+				monDoodle.x=WIDTH;
+			}
 		}
 
 		public void actionPerformed(ActionEvent e) {
 			this.setTitle("DoodleJump " + String.valueOf(chrono)); // le chrono s'afficha à coté du titre de la fenêtre de jeu
-			monDoodle.deplaceDoodle();
+			monDoodle.tombeDoodle();
+			monDoodle.bougeX();
 			labelDoodle.setLocation(monDoodle.x,monDoodle.y);
 			collision();
+			checkSortieEcran();
 			chrono++;
+			System.out.println(monDoodle.x );
+			System.out.println(monDoodle.vitesseX);
 		}
 
 		public void keyPressed (KeyEvent e){
 			switch (e.getKeyCode()) {
 				case KeyEvent.VK_RIGHT:
 				// action fleche droite
-					if(monDoodle.x<WIDTH) {
-						monDoodle.x+= 10;
-					}else {
-						monDoodle.x=0;
-					}
-					labelDoodle.setLocation(monDoodle.x , monDoodle.y);
+					monDoodle.droite= true;
+					monDoodle.stopDroite= false;
+					monDoodle.gauche=false;
+					monDoodle.stopGauche=false;
 					break;
 				case KeyEvent.VK_LEFT:
 					// action flèche gauche
-					if(monDoodle.x>0) {
-						monDoodle.x-= 10;
-					}else {
-						monDoodle.x=WIDTH;
-					}
-					labelDoodle.setLocation(monDoodle.x , monDoodle.y );
+					monDoodle.gauche= true;
+					monDoodle.stopGauche= false;
+					monDoodle.droite= false;
+					monDoodle.stopDroite= false;
 					break;
 
 				/** appuyer sur la flèche du bas pour faire revenir doodle */
 				case KeyEvent.VK_DOWN:
 					// action flèche bas
-					if(monDoodle.y>HEIGHT) {
-						monDoodle.y = 0;
-					}
+					monDoodle.y= HEIGHT/2;
+					monDoodle.x= WIDTH/2;
+					monDoodle.vitesseX=0;
+					monDoodle.vitesseY=-25;
 					monDoodle.setLocation(monDoodle.x , monDoodle.y);
 					break;
 
@@ -168,9 +177,23 @@ import java.util.LinkedList;
 		}
 		/** ces deux là sont pas utiles mais si on le met pas la fonctionnalité keyListener peut pas fonctionner sans **/
 		public void keyReleased (KeyEvent e) {
-
+			if(e.getKeyCode()== KeyEvent.VK_RIGHT && monDoodle.getVitesseX()>0) {
+				// action relachement fleche droite
+				monDoodle.stopDroite= true;
+				monDoodle.droite= false;
+				monDoodle.stopGauche= false;
+				monDoodle.gauche= false;
+			}
+			if(e.getKeyCode()== KeyEvent.VK_LEFT && monDoodle.getVitesseX()<0) {
+				// action relachement flèche gauche
+				monDoodle.stopGauche= true;
+				monDoodle.gauche= false;
+				monDoodle.stopDroite= false;
+				monDoodle.droite= false;
+			}
 		}
 		public void keyTyped (KeyEvent e){
 		}
 
 	}
+

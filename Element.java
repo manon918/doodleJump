@@ -43,11 +43,4 @@ public class Element extends JFrame {
         this.y = y;
     }
 
-    //****************************les 2 méthodes par rapport au deplacement************************************************
-    public void bougeX(int k){
-        x += k;
-    }
-    public void bougeY(int k){
-        y += k;
-    }
 }
