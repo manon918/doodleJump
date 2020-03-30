@@ -34,7 +34,8 @@ import java.util.LinkedList;
 		/*
 		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon imagePallier= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\pallier.png");
-		ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png"); */
+		ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");
+		*/
 		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon imagePallier= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\pallier.png");
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");
@@ -51,8 +52,11 @@ import java.util.LinkedList;
 		private int x=WIDTH/2; //position initiale doodle en largeur
 		private int y=HEIGHT/2; // position initiale doodle en hauteur
 
+		final int xi=WIDTH/2; //position initiale pallier1 en largeur
+		final int yi=HEIGHT/2; // position initiale pallier1 en hauteur
+
 		Doodle monDoodle = new Doodle(x, y, labelDoodle); //creation objet doodle
-		Pallier monPallier= new Pallier(labelPallier); //creation objet pallier
+		Pallier monPallier= new Pallier(xi, yi, labelPallier); //creation objet pallier         //je defini correctement le premier pallier pour faire les tests de collision mais apres il faudra incorporer ca dans la méthode qui génere tous les palliers
 
 		int chrono=0; //initialisation timer
 
@@ -74,29 +78,28 @@ import java.util.LinkedList;
 			panneauGlobal.setLayout(null);
 			add(panneauGlobal);
 			panneauGlobal.add(labelDoodle);
+			panneauGlobal.add(labelPallier);
 
 
 			JLabel test = new JLabel("pallier" + listePallier.size()); //test nombre de pallier dans la liste
 			test.setBounds(0, 0, 100, 200);
 			panneauGlobal.add(test);
 
-
+			/*
 			//ajout d'un palliers position aléatoire
 			double pourcentage = 0.05;
 			int calculNbPallier= (int)(HEIGHT*pourcentage);
 			for (int i=0 ; i<calculNbPallier; i++) {
 				imagePallier = new ImageIcon(imagePallier.getImage().getScaledInstance(monPallier.getWidth(), monPallier.getHeight(), Image.SCALE_DEFAULT)); // permet de redimensionner le pallier si besoin
 				labelPallier= new JLabel (imagePallier);
-				monPallier= new Pallier(labelPallier);
 				int a = (int) (Math.random() * HEIGHT) ;
 				int b = (int) (Math.random() * WIDTH);
-				labelPallier.setBounds(b, a, monPallier.getWidth(), monPallier.getHeight());
-				labelPallier.setLayout(null);
+				monPallier= new Pallier(b, a, labelPallier);
 				panneauGlobal.add(labelPallier);
 				listePallier.add(monPallier);
 			}
 			// éliminer les palliers qui se superposent
-
+			*/
 
 			//Ajout fond
 			imageFond = new ImageIcon(imageFond.getImage().getScaledInstance(panneauGlobal.getWidth(), panneauGlobal.getHeight(), Image.SCALE_DEFAULT));	//Redimensionnement de l'image de fond pour ajustement à la fenêtre
@@ -108,8 +111,12 @@ import java.util.LinkedList;
 		}
 
 		public void collision (){
-			if ((monDoodle.getY()==monPallier.getY())&&(monDoodle.getX()==monPallier.getX())){
-				monDoodle.saut();
+			if(monDoodle.getVitesseY()>0) {
+				if (((monDoodle.getY() + monDoodle.height) < (monPallier.getY() + monPallier.height)) && ((monDoodle.getY() + monDoodle.height) > (monPallier.getY()))) { //test des Y
+					if (((monDoodle.getX() + monDoodle.width - 22) > (monPallier.getX())) && ((monDoodle.getX()) < (monPallier.getX() + monPallier.width))) {             //test des x
+						monDoodle.saut();
+					}
+				}
 			}
 
 		}
@@ -118,9 +125,8 @@ import java.util.LinkedList;
 			this.setTitle("DoodleJump " + String.valueOf(chrono)); // le chrono s'afficha à coté du titre de la fenêtre de jeu
 			monDoodle.deplaceDoodle();
 			labelDoodle.setLocation(monDoodle.x,monDoodle.y);
-			//collision();
+			collision();
 			chrono++;
-
 		}
 
 		public void keyPressed (KeyEvent e){

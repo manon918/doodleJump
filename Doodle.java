@@ -7,8 +7,8 @@ public class Doodle extends Element {
     //***********************************les 2 parametres de doodle pas dans element********************************
     protected int vitesseX;
     protected int vitesseY;
-    protected int width = 60;
-    protected int height = 60;
+    protected int width;
+    protected int height;
 
 
     //************************************constructeur***********************************************************
@@ -62,8 +62,14 @@ public class Doodle extends Element {
     //*******************************************méthode pour deplacer le doodle*********************************
     public void deplaceDoodle(){
         int gravite= 1;
-        y+= vitesseY;
-        vitesseY+= gravite;
+        int vitesseMax= 40;
+        if(vitesseY< vitesseMax){
+            y+= vitesseY;
+            vitesseY+= gravite;
+        } else {vitesseY= vitesseMax;
+                y+= vitesseY;
+            }
+
     }
 
     public void saut (){
