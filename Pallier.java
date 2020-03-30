@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.util.LinkedList;
+
 
 public class Pallier extends Element {
     //***********************************le parametre de pallier pas dans element********************************

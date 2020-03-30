@@ -52,11 +52,8 @@ import java.util.LinkedList;
 		private int x=WIDTH/2; //position initiale doodle en largeur
 		private int y=HEIGHT/2; // position initiale doodle en hauteur
 
-		final int xi=WIDTH/2; //position initiale pallier1 en largeur
-		final int yi=HEIGHT/2; // position initiale pallier1 en hauteur
-
 		Doodle monDoodle = new Doodle(x, y, labelDoodle); //creation objet doodle
-		Pallier monPallier= new Pallier(xi, yi, labelPallier); //creation objet pallier         //je defini correctement le premier pallier pour faire les tests de collision mais apres il faudra incorporer ca dans la méthode qui génere tous les palliers
+		Pallier monPallier= new Pallier(x, y, labelPallier); //creation objet pallier
 
 		int chrono=0; //initialisation timer
 
@@ -78,16 +75,9 @@ import java.util.LinkedList;
 			panneauGlobal.setLayout(null);
 			add(panneauGlobal);
 			panneauGlobal.add(labelDoodle);
-			panneauGlobal.add(labelPallier);
-
-
-			JLabel test = new JLabel("pallier" + listePallier.size()); //test nombre de pallier dans la liste
-			test.setBounds(0, 0, 100, 200);
-			panneauGlobal.add(test);
-
-			/*
+			
 			//ajout d'un palliers position aléatoire
-			double pourcentage = 0.05;
+			double pourcentage = 0.01;
 			int calculNbPallier= (int)(HEIGHT*pourcentage);
 			for (int i=0 ; i<calculNbPallier; i++) {
 				imagePallier = new ImageIcon(imagePallier.getImage().getScaledInstance(monPallier.getWidth(), monPallier.getHeight(), Image.SCALE_DEFAULT)); // permet de redimensionner le pallier si besoin
@@ -99,7 +89,10 @@ import java.util.LinkedList;
 				listePallier.add(monPallier);
 			}
 			// éliminer les palliers qui se superposent
-			*/
+
+			JLabel test = new JLabel("pallier" + listePallier.size()); //test nombre de pallier dans la liste
+			test.setBounds(0, 0, 100, 200);
+			panneauGlobal.add(test);
 
 			//Ajout fond
 			imageFond = new ImageIcon(imageFond.getImage().getScaledInstance(panneauGlobal.getWidth(), panneauGlobal.getHeight(), Image.SCALE_DEFAULT));	//Redimensionnement de l'image de fond pour ajustement à la fenêtre
@@ -111,10 +104,12 @@ import java.util.LinkedList;
 		}
 
 		public void collision (){
-			if(monDoodle.getVitesseY()>0) {
-				if (((monDoodle.getY() + monDoodle.height) < (monPallier.getY() + monPallier.height)) && ((monDoodle.getY() + monDoodle.height) > (monPallier.getY()))) { //test des Y
-					if (((monDoodle.getX() + monDoodle.width - 22) > (monPallier.getX())) && ((monDoodle.getX()) < (monPallier.getX() + monPallier.width))) {             //test des x
-						monDoodle.saut();
+			for(int i= 0; i<listePallier.size(); i++){
+				if(monDoodle.getVitesseY()>0) {
+					if (((monDoodle.getY() + monDoodle.height) < (listePallier.get(i).getY() + listePallier.get(i).height +5)) && ((monDoodle.getY() + monDoodle.height + 5) > (listePallier.get(i).getY()))) { //test des Y
+						if (((monDoodle.getX() + monDoodle.width - 22) > (listePallier.get(i).getX())) && ((monDoodle.getX()) < (listePallier.get(i).getX() + listePallier.get(i).width))) {             //test des x
+							monDoodle.saut();
+						}
 					}
 				}
 			}
@@ -137,8 +132,6 @@ import java.util.LinkedList;
 			collision();
 			checkSortieEcran();
 			chrono++;
-			System.out.println(monDoodle.x );
-			System.out.println(monDoodle.vitesseX);
 		}
 
 		public void keyPressed (KeyEvent e){
