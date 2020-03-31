@@ -83,12 +83,13 @@ import java.util.LinkedList;
 				imagePallier = new ImageIcon(imagePallier.getImage().getScaledInstance(monPallier.getWidth(), monPallier.getHeight(), Image.SCALE_DEFAULT)); // permet de redimensionner le pallier si besoin
 				labelPallier= new JLabel (imagePallier);
 				int a = (int) (Math.random() * HEIGHT) ;
-				int b = (int) (Math.random() * WIDTH);
+				int b = (int) (Math.random() * (WIDTH-58));
 				monPallier= new Pallier(b, a, labelPallier);
 				panneauGlobal.add(labelPallier);
 				listePallier.add(monPallier);
 			}
 			// éliminer les palliers qui se superposent
+			
 
 			JLabel test = new JLabel("pallier" + listePallier.size()); //test nombre de pallier dans la liste
 			test.setBounds(0, 0, 100, 200);

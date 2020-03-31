@@ -81,6 +81,7 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
      */
     public void actionPerformed (ActionEvent e){
         if (e.getSource()== monBoutonDemarrer){
+            FenetreJeu maFenetreJeu = new FenetreJeu();
             maFenetreJeu.setVisible(true);
         }
     }
