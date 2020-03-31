@@ -26,9 +26,14 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
 		final int WIDTH=hauteur/2; // initialisation largeur Fenetre de jeu
 		final int HEIGHT=hauteur;// initialisation longeur Fenetre de jeu
 		
+		/*
 		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon imagePallier= new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\palier.png");
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png");
+		*/
+		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); //killian
+		ImageIcon imagePallier= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\pallier.png"); //killian
+		ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");//killian
 		
 		JLabel labelDoodle = new JLabel(imageDoodle);
 		JLabel labelPallier= new JLabel(imagePallier) ;

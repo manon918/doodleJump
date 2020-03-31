@@ -11,10 +11,13 @@ public class FenetreMort extends JFrame implements ActionListener{
 		final int WIDTH=hauteur/2; // initialisation largeur Fenetre de jeu
 		final int HEIGHT=hauteur;// initialisation longeur Fenetre de jeu	
 		
-		
+		/*
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png");
 		ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\perdu.png");
-		
+		*/
+		ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");//killian
+		ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\utilisateur\\doodleJump\\perdu.PNG"); //killian
+
 		
 	
 	public FenetreMort() {
