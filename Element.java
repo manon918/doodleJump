@@ -12,28 +12,13 @@ public class Element extends JFrame {
     protected JLabel support;
 
     // *********************************************constructeur**********************************************
-    public Element(JLabel support){
-        this.support=support;
-    }
     public Element (int x, int y , JLabel support){
         this.x= x;
         this.y= y;
         this.support=support;
     }
 
-
-    //**********************************************getters****************************************************
-    public int getX() { return x; }
-
-    public int getY() { return y; }
-
-    public int getWidth() { return width;  }
-
-    public int getHeight() {
-        return height;
-    }
-
-    //**************************setters, ca permet de réécrire les variables (pas besoin pour la largeur et la hauteur)****************************************
+    /**permet de réécrire les variables (pas besoin pour la largeur et la hauteur)*/
 
     public void setX(int x) {
         this.x = x;

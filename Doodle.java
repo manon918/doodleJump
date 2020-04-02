@@ -5,12 +5,14 @@ import java.awt.event.KeyEvent;
 public class Doodle extends Element {
 
     //***********************************les 2 parametres de doodle pas dans element********************************
-    protected int vitesseX;
-    protected int vitesseY;
     protected int width;
     protected int height;
+
+    protected int vitesseX;
+    protected int vitesseY;
     protected int vitesseMaxY= 40;
     protected int vitesseMaxX= 15;
+
     protected boolean droite= false;
     protected boolean gauche= false;
     protected boolean stopDroite= false;
@@ -28,26 +30,9 @@ public class Doodle extends Element {
         vitesseY = -25;//c est un exemple je voudrais que la vitesse initiale fasse comme s'il y avait un saut au debut comme dans le vrai jeu
     }
 
-    //**************************************getters sur les nouveaux parametres********************************************************
-    public int getVitesseX() {
-        return vitesseX;
-    }
-
-    public int getVitesseY() {
-        return vitesseY;
-    }
-
-    public int getHeight(){
-        return height;
-    }
-
-    public int getWidth(){
-        return width;
-    }
-
     //******************************************setters*********************************************************
 
-    public void setVitesseX(int vitesseX) {
+      public void setVitesseX(int vitesseX) {
         this.vitesseX = vitesseX;
     }
 
@@ -62,7 +47,6 @@ public class Doodle extends Element {
     public void setHeight(int height) {
         this.height = height;
     }
-
 
 
     //*******************************************méthode pour deplacer le doodle*********************************

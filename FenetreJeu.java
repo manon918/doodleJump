@@ -20,7 +20,10 @@
  * 
  * 
  */
+import com.sun.org.apache.xalan.internal.xsltc.dom.AbsoluteIterator;
+
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.LinkedList;
@@ -30,24 +33,18 @@ import java.util.LinkedList;
 		LinkedList<Pallier> listePallier = new LinkedList<Pallier>(); // initialisation de la liste contenant les palliers
 
 		// Les Widgets à déclarer en dehors du constructeur
+		private FenetreMort maFenetreMort;
 
-		/*
 		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon imagePallier= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\pallier.png");
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");
-		*/
 		/*
 		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon imagePallier= new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\palier.png");
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png");
 		*/
-		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); //killian
-		ImageIcon imagePallier= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\pallier.png"); //killian
-		ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");//killian
-
 		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();// la fenêtre s'adapte à la taille de l'écran ordinateur
 		final int HAUTEUR = (int)dimension.getHeight();
-
 		final int WIDTH=HAUTEUR/2; // initialisation largeur Fenetre de jeu
 		final int HEIGHT=HAUTEUR;// initialisation longeur Fenetre de jeu
 
@@ -75,46 +72,42 @@ import java.util.LinkedList;
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// Pour permettre la fermeture de la fenêtre lors de l'appui sur la croix rouge
 			addKeyListener(this);// connecte la fenêtre de jeu à keylistener
 
-			/** Mon panneau Global*/
-			JPanel panneauGlobal = new JPanel();
-			panneauGlobal.setBounds(0, 0, WIDTH, HEIGHT);
-			panneauGlobal.setLayout(null);
-			add(panneauGlobal);
-			panneauGlobal.add(labelDoodle);
+			this.add(labelDoodle);//affichage Doodle
 			
-			//ajout d'un palliers position aléatoire
+			//ajout des palliers position aléatoire
 			double pourcentage = 0.03;
 			int calculNbPallier= (int)(HEIGHT*pourcentage);
 			for (int i=0 ; i<calculNbPallier; i++) {
-				imagePallier = new ImageIcon(imagePallier.getImage().getScaledInstance(monPallier.getWidth(), monPallier.getHeight(), Image.SCALE_DEFAULT)); // permet de redimensionner le pallier si besoin
+				imagePallier = new ImageIcon(imagePallier.getImage().getScaledInstance(monPallier.width, monPallier.height, Image.SCALE_DEFAULT)); // permet de redimensionner le pallier si besoin
 				labelPallier= new JLabel (imagePallier);
-				int a = (int) (Math.random() * HEIGHT) ;
+				int a = (int) (Math.random() * (HEIGHT-15));
 				int b = (int) (Math.random() * (WIDTH-58));
-				monPallier= new Pallier(b, a, labelPallier);
-				panneauGlobal.add(labelPallier);
+				//élimenr pallier marche pas
+				/*for (int j= 0 ; j<i ; j++){
+					while (Math.abs(b-listePallier.get(j).x)<100){
+						b= (int) (Math.random() * (WIDTH-58));
+					}
+				}*/
+
+				monPallier = new Pallier(b, a, labelPallier);
+				this.add(labelPallier);
 				listePallier.add(monPallier);
 			}
-			// éliminer les palliers qui se superposent
-			
-
-			JLabel test = new JLabel("pallier" + listePallier.size()); //test nombre de pallier dans la liste
-			test.setBounds(0, 0, 100, 200);
-			panneauGlobal.add(test);
 
 			//Ajout fond
-			imageFond = new ImageIcon(imageFond.getImage().getScaledInstance(panneauGlobal.getWidth(), panneauGlobal.getHeight(), Image.SCALE_DEFAULT));	//Redimensionnement de l'image de fond pour ajustement à la fenêtre
+			imageFond = new ImageIcon(imageFond.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT));	//Redimensionnement de l'image de fond pour ajustement à la fenêtre
 			JLabel labelFond = new JLabel(imageFond);
 			labelFond.setBounds(0, 0, WIDTH, HEIGHT);
-			panneauGlobal.add(labelFond);
+			this.add(labelFond);
 			this.setVisible(false);// Pour rendre la fenêtre visible
 
 		}
 
 		public void collision (){
 			for(int i= 0; i<listePallier.size(); i++){
-				if(monDoodle.getVitesseY()>0) {
-					if (((monDoodle.getY() + monDoodle.height) < (listePallier.get(i).getY() + listePallier.get(i).height +5)) && ((monDoodle.getY() + monDoodle.height + 5) > (listePallier.get(i).getY()))) { //test des Y
-						if (((monDoodle.getX() + monDoodle.width - 22) > (listePallier.get(i).getX())) && ((monDoodle.getX()) < (listePallier.get(i).getX() + listePallier.get(i).width))) {             //test des x
+				if(monDoodle.vitesseY>0) {
+					if (((monDoodle.y + monDoodle.height) < (listePallier.get(i).y + listePallier.get(i).height +5)) && ((monDoodle.y + monDoodle.height + 5) > (listePallier.get(i).y))) { //test des Y
+						if (((monDoodle.x + monDoodle.width - 22) > (listePallier.get(i).x)) && ((monDoodle.x) < (listePallier.get(i).x + listePallier.get(i).width))) {             //test des x
 							monDoodle.saut();
 						}
 					}
@@ -132,13 +125,13 @@ import java.util.LinkedList;
 		}
 
 		public void bougeEcran() {
-			if(monDoodle.getY()< hauteurMax ){
-				int depassement= hauteurMax- monDoodle.getY();
+			if(monDoodle.y< hauteurMax ){
+				int depassement= hauteurMax- monDoodle.y;
 				monDoodle.setY(hauteurMax);
 				for (int i= 0; i<listePallier.size(); i++){
-					listePallier.get(i).setY(listePallier.get(i).getY()+depassement);
-					listePallier.get(i).getpallier().setLocation(listePallier.get(i).getX(),listePallier.get(i).getY()+depassement);
-					if (listePallier.get(i).getY()> HEIGHT) {
+					listePallier.get(i).setY(listePallier.get(i).y+depassement);
+					listePallier.get(i).getpallier().setLocation(listePallier.get(i).x,listePallier.get(i).y+depassement);
+					if (listePallier.get(i).y> HEIGHT) {
 						listePallier.get(i).setY(-20);
 						listePallier.get(i).setX((int) (Math.random() * (WIDTH-58)));
 					}
@@ -148,8 +141,9 @@ import java.util.LinkedList;
 		}
 
 		public void checkMort() {
-			if((monDoodle.getY())> 2*HEIGHT){
-				FenetreMort maFenetreMort = new FenetreMort();
+			if((monDoodle.y+monDoodle.height)> HEIGHT) {
+				maFenetreMort = new FenetreMort();
+				monDoodle.y=0;// sinon la fenêtre s'ouvre constamment faut trouve un moyen d'arrêter totalement la fenêtre jeu
 				maFenetreMort.setVisible(true);
 			}
 		}
@@ -199,16 +193,15 @@ import java.util.LinkedList;
 					break;
 			}
 		}
-		/** ces deux là sont pas utiles mais si on le met pas la fonctionnalité keyListener peut pas fonctionner sans **/
 		public void keyReleased (KeyEvent e) {
-			if(e.getKeyCode()== KeyEvent.VK_RIGHT && monDoodle.getVitesseX()>0) {
+			if(e.getKeyCode()== KeyEvent.VK_RIGHT && monDoodle.vitesseX>0) {
 				// action relachement fleche droite
 				monDoodle.stopDroite= true;
 				monDoodle.droite= false;
 				monDoodle.stopGauche= false;
 				monDoodle.gauche= false;
 			}
-			if(e.getKeyCode()== KeyEvent.VK_LEFT && monDoodle.getVitesseX()<0) {
+			if(e.getKeyCode()== KeyEvent.VK_LEFT && monDoodle.vitesseX<0) {
 				// action relachement flèche gauche
 				monDoodle.stopGauche= true;
 				monDoodle.gauche= false;

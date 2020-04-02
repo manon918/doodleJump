@@ -13,14 +13,10 @@ public class Pallier extends Element {
         pallier.setBounds(x, y, width, height);
         pallier.setLayout(null);
     }
-
     //**************************************getters sur les nouveaux parametres********************************************************
     public JLabel getpallier() {
         return this.support;
     }
-
-    //******************************************setters*********************************************************
-
 
 }
 
