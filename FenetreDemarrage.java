@@ -28,24 +28,26 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
     final int WIDTH=HAUTEUR/2; // initialisation largeur Fenetre de démarrage
     final int HEIGHT=HAUTEUR;// initialisation longeur Fenetre de démarrage
 
-    ImageIcon imageDoodle = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
+    /*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 	ImageIcon imagePallier= new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\palier.png");
 	ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png");
-	ImageIcon imageTitre= new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Titre.png");
-	/*
+	ImageIcon imageTitre= new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Titre.png");*/
+
     ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
     ImageIcon imagePallier= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\palier.png");
     ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");
-	*/
+    ImageIcon imageTitre= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Titre.png");
+
+
     JLabel labelDoodle = new JLabel(imageDoodle);
     JLabel labelPallier1= new JLabel(imagePallier) ;
 
     private int x=(WIDTH-10)/2; //position initiale doodle en largeur
     private int y=(HEIGHT/2)+50; // position initiale doodle en HAUTEUR
-    
+
     Doodle monDoodle = new Doodle(x, y, labelDoodle); //creation objet doodle
 	Pallier monPallier1= new Pallier(x, y, labelPallier1); //creation objet pallier
-	
+
 	int hauteurMax= HAUTEUR*2/5;
 	int score= 0;
 
@@ -59,7 +61,8 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
         this.setLocationRelativeTo(null); // Pour placer la fenêtre au centre de l'écran
         this.setResizable(false); // Pour empêcher le redimensionnement de la fenêtre
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Pour permettre la fermeture de la fenêtre lors de l'appui sur la croix rouge
-        
+
+        imageTitre = new ImageIcon(imageTitre.getImage().getScaledInstance(WIDTH, HEIGHT/6, Image.SCALE_DEFAULT));
         this.add(labelDoodle);//affichage Doodle
 
         /*JLabel titre = new JLabel();
