@@ -18,35 +18,31 @@ public class FenetreMort extends JFrame implements ActionListener{
 	private JLabel monEtiquetteScore;
 
 
-	Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();// la fenêtre s'adapte à la taille de l'écran ordinateur
-	final int HAUTEUR = (int)dimension.getHeight();
-	final int WIDTH=HAUTEUR/2; // initialisation largeur Fenetre de démarrage
-	final int HEIGHT=HAUTEUR;// initialisation longeur Fenetre de démarrage
+	final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();// la fenêtre s'adapte à la taille de l'écran ordinateur
+	final int WIDTH=HEIGHT/2; // initialisation largeur Fenetre de démarrage
+
 
 	public FenetreMort(int sc) {
-		
 		this.score = sc;
 		this.setSize(500, 500);
-		this.setLocationRelativeTo(null);// Place la fenêtre au centre de l'écran
-		this.setResizable(false);// Empêche le redimensionnement de la fenêtre
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		this.setTitle("DoodleJump ");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// Pour permettre la fermeture de la fenêtre lors de l'appui sur la croix rouge
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JLabel perdu = new JLabel(imagePerdu);
 		perdu.setBounds(30,(500/2)-200,500-10,200);
 		perdu.setLayout(null);
 		this.add(perdu);
 
-		//JLabel test= new JLabel();
-		//test.setBounds(0,0,10,10);
+
 		monBoutonRejouer = new JButton("Rejouer");
 		monBoutonRejouer.setBounds((500/2)-80,500-200,160,50);
 		monBoutonRejouer.setBackground(Color.RED);
 		monBoutonRejouer.setForeground(Color.white);
 		monBoutonRejouer.addActionListener(this);// branchement de l'écouteur
 		this.add(monBoutonRejouer);
-		
-		
+
 		monEtiquetteScore = new JLabel("Score = "+Integer.toString(score));
 		monEtiquetteScore.setBounds((500/2)-80,(500/2),1000,50);
 		Font font = new Font("Arial",Font.BOLD,25);

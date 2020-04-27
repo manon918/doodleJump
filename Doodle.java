@@ -27,27 +27,8 @@ public class Doodle extends Element {
         doodle.setBounds(x,y,width, height);
         doodle.setLayout(null);
         vitesseX = 0;
-        vitesseY = -25;//c est un exemple je voudrais que la vitesse initiale fasse comme s'il y avait un saut au debut comme dans le vrai jeu
+        vitesseY = -25;
     }
-
-    //******************************************setters*********************************************************
-
-      public void setVitesseX(int vitesseX) {
-        this.vitesseX = vitesseX;
-    }
-
-    public void setVitesseY(int vitesseY) {
-        this.vitesseY = vitesseY;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
 
     //*******************************************méthode pour deplacer le doodle*********************************
     public void tombeDoodle(){
@@ -56,9 +37,9 @@ public class Doodle extends Element {
             y+= vitesseY;
             vitesseY+= gravite;
         } else {
-                vitesseY= vitesseMaxY;
-                y+= vitesseY;
-            }
+            vitesseY = vitesseMaxY;
+            y += vitesseY;
+        }
     }
 
     public void saut (){
