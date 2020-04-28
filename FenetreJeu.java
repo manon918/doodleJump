@@ -199,9 +199,9 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		public void checkMort() {
 			if((monDoodle.y+monDoodle.height)> 2*HEIGHT) {
 				maFenetreMort = new FenetreMort(score);
-				monDoodle.y=0;// sinon la fenêtre s'ouvre constamment faut trouve un moyen d'arrêter totalement la fenêtre jeu
 				maFenetreMort.setVisible(true);
 				this.setVisible(false);
+				mt.stop();
 			}
 		}
 
