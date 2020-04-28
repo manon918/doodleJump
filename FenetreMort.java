@@ -6,13 +6,19 @@ import java.awt.event.*;
 public class FenetreMort extends JFrame implements ActionListener{
 
 	private JButton monBoutonRejouer;
+
 	//ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png");
 	//ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\gameover.png");
+
 	//ImageIcon imageFond = new ImageIcon("C:\\Users\\faust\\Downloads\\doodleJump-master\\Fond.png");
 	//ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\faust\\Downloads\\doodleJump-master\\doodleJump-master\\gameover.png");
 
-	ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\ProjetDoodleJump\\Fond.png");
-	ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\manon\\ProjetDoodleJump\\gameover.png");
+	/*ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\ProjetDoodleJump\\Fond.png");
+	ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\manon\\ProjetDoodleJump\\gameover.png");*/
+
+	ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");
+	ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\utilisateur\\doodleJump\\gameover.png");
+
 
 	protected int score ;
 	private JLabel monEtiquetteScore;

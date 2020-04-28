@@ -36,13 +36,17 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		// Les Widgets à déclarer en dehors du constructeur
 		private FenetreMort maFenetreMort;
 
-		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
+		/*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon imagePalier= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\pallier.png");
-		ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");
+		ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");*/
+
 		/*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon imagePalier = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\palier.png");
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png");*/
-		
+
+		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); //killian
+		ImageIcon imagePalier= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\palier.png");
+		ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");
 
 		final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();// la fenêtre s'adapte à la taille de l'écran ordinateur
 		final int WIDTH= HEIGHT/2; // initialisation largeur Fenetre de jeu
@@ -113,7 +117,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		/** créée des paliers de secours hors de la fenêtres qui descendent lorsque la distance entre le doodle et les paliers existant
 		 *  est supérieure à la distance parcouru par un saut (en hauteur) */
 		public void palierDeSecours() {
-			if (deltaY >200) {
+			if (deltaY >300) {
 				int a = -20;
 				int b = (int) (Math.random() * (WIDTH-58));
 				if (listePalierStock.size ()>=1) {
@@ -176,8 +180,8 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 								listePalier.get(i).setX((int) (Math.random() * (WIDTH - 58)));
 								deltaY=0;
 							}else {
-								listePalierStock.add(listePalier.get(i));
-								listePalier.remove(i);
+								listePalierStock.add(listePalier.get(i));		//c'est cest deux lignes qui font bugger vers 6000 car il y a un moment ou la liste est vide est du coup on a un out of bounds
+								listePalier.remove(i);							//
 							}
 						 }
 						 j=j+3000;

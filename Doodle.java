@@ -21,7 +21,7 @@ public class Doodle extends Element {
 
     //************************************constructeur***********************************************************
     public Doodle(int x, int y, JLabel doodle){
-        super(x,y, doodle);
+        super(x,y,doodle);
         this.height = 60;
         this.width = 60;
         doodle.setBounds(x,y,width, height);
