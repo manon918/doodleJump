@@ -6,22 +6,15 @@ import java.awt.event.*;
 public class FenetreMort extends JFrame implements ActionListener{
 
 	private JButton monBoutonRejouer;
-
 	//ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png");
 	//ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\gameover.png");
-
 	//ImageIcon imageFond = new ImageIcon("C:\\Users\\faust\\Downloads\\doodleJump-master\\Fond.png");
 	//ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\faust\\Downloads\\doodleJump-master\\doodleJump-master\\gameover.png");
 
-	/*ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\ProjetDoodleJump\\Fond.png");
-	ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\manon\\ProjetDoodleJump\\gameover.png");*/
-
-	ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");
-	ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\utilisateur\\doodleJump\\gameover.png");
-
+	ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\ProjetDoodleJump\\Fond.png");
+	ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\manon\\ProjetDoodleJump\\gameover.png");
 
 	protected int score ;
-	private JLabel monEtiquetteScore;
 
 
 	final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();// la fenêtre s'adapte à la taille de l'écran ordinateur
@@ -49,7 +42,7 @@ public class FenetreMort extends JFrame implements ActionListener{
 		monBoutonRejouer.addActionListener(this);// branchement de l'écouteur
 		this.add(monBoutonRejouer);
 
-		monEtiquetteScore = new JLabel("Score = "+Integer.toString(score));
+		JLabel monEtiquetteScore = new JLabel("Score = " + score);
 		monEtiquetteScore.setBounds((500/2)-80,(500/2),1000,50);
 		Font font = new Font("Arial",Font.BOLD,25);
 		monEtiquetteScore.setFont(font);
@@ -69,6 +62,7 @@ public class FenetreMort extends JFrame implements ActionListener{
 		if (e.getSource()== monBoutonRejouer){
 			FenetreJeu maFenetreJeu = new FenetreJeu();
 			maFenetreJeu.setVisible(true);
+			this.setVisible (false);
 		}
 	}
 }

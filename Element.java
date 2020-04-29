@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 
 public class Element extends JFrame {
 
@@ -14,6 +12,10 @@ public class Element extends JFrame {
         this.x= x;
         this.y= y;
         this.support=support;
+    }
+    public Element (int x, int y ){
+        this.x= x;
+        this.y= y;
     }
 
     public void setX(int x) {

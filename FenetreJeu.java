@@ -30,36 +30,32 @@ import java.util.LinkedList;
 
 public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 
-		LinkedList<Palier> listePalier = new LinkedList<Palier>(); // initialisation de la liste contenant les palliers
-		LinkedList<Palier> listePalierStock = new LinkedList<Palier>(); // initialisation de la liste contenant les palliers
+		LinkedList<Palier> listePalier = new LinkedList<>();
+		LinkedList<Palier> listePalierStock = new LinkedList<>();
 
-		// Les Widgets à déclarer en dehors du constructeur
-		private FenetreMort maFenetreMort;
-
-		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
+	ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon imagePalier= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\pallier.png");
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");
 		/*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon imagePalier = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\palier.png");
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png");*/
-		
+
 
 		final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();// la fenêtre s'adapte à la taille de l'écran ordinateur
 		final int WIDTH= HEIGHT/2; // initialisation largeur Fenetre de jeu
 
-		JLabel labelDoodle = new JLabel(imageDoodle);
-		JLabel labelPalier= new JLabel(imagePalier) ;
+		JLabel labelDoodle;
+		JLabel labelPalier;
 
-		private int x=WIDTH/2; //position initiale doodle en largeur
-		private int y=HEIGHT/2; // position initiale doodle en hauteur
+		private int x=WIDTH/2;
+		private int y=HEIGHT/2;
 
-		Doodle monDoodle = new Doodle(x, y, labelDoodle); //creation objet doodle
-		Palier monPalier=new Palier(x, y, labelPalier);
+		Doodle monDoodle = new Doodle(x, y);
+		Palier monPalier=new Palier(x, y);
 
-	private int deltaY=0; // utile pour plateforme de secours
+		private int deltaY=0;
 		int hauteurMax= HEIGHT*2/5;
 		int score;
-		int scoreP = 1000000;
 		Timer mt= new Timer(40,this); //initialisation du timer
 
 
@@ -72,6 +68,10 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 			addKeyListener(this);
+
+			imageDoodle = new ImageIcon(imageDoodle.getImage().getScaledInstance(monDoodle.width ,monDoodle.height, Image.SCALE_DEFAULT));
+			labelDoodle = new JLabel (imageDoodle);
+			monDoodle= new Doodle(x,y,labelDoodle);
 			this.add(monDoodle.support);
 
 			double pourcentage = 0.02;
@@ -102,11 +102,12 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 	 */
 		public boolean checkPalier(int a ,int b){
 			boolean test= true;
-			for(int i=0 ; i<listePalier.size(); i++){
-				if((Math.abs (listePalier.get(i).x-a)<monPalier.width )&&(Math.abs(listePalier.get(i).y-b)<monPalier.height )) {
+			for (Palier palier : listePalier)
+				if ((Math.abs(palier.x - a) < monPalier.width) && (Math.abs(palier.y - b) < monPalier.height)) {
 					test = false;
+
 				}
-			}return test;
+			return test;
 		}
 
 		/** créée des paliers de secours hors de la fenêtres qui descendent lorsque la distance entre le doodle et les paliers existant
@@ -127,10 +128,10 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 
 		/** détermine la collision entre le doodle et les paliers et lance la méthode saut*/
 		public void collision() {
-			for (int i = 0; i < listePalier.size(); i++) {
+			for (Palier palier : listePalier) {
 				if (monDoodle.vitesseY > 0) {
-					if (((monDoodle.y + monDoodle.height) < (listePalier.get(i).y + listePalier.get(i).height + 5)) && ((monDoodle.y + monDoodle.height + 5) > (listePalier.get(i).y))) {
-						if (((monDoodle.x + monDoodle.width - 22) > (listePalier.get(i).x)) && ((monDoodle.x) < (listePalier.get(i).x + listePalier.get(i).width))) {
+					if (((monDoodle.y + monDoodle.height) < (palier.y + palier.height + 5)) && ((monDoodle.y + monDoodle.height + 5) > (palier.y))) {
+						if (((monDoodle.x + monDoodle.width - 22) > (palier.x)) && ((monDoodle.x) < (palier.x + palier.width))) {
 							monDoodle.saut();
 						}
 					}
@@ -164,7 +165,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 					 if ((listePalier.get(i).y > HEIGHT) && (score < 3000)) {
 						 int b = (int) (Math.random() * 80);
 						 int d = (int) (Math.random() * (WIDTH - monPalier.width));
-						 while (checkPalier(d, b) == false) {
+						 while (!checkPalier(d, b)) {
 							 b = (int) (Math.random() * 80);
 							 d = (int) (Math.random() * (WIDTH - monPalier.width));
 						 }
@@ -192,7 +193,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 
 		public void checkMort() {
 			if((monDoodle.y+monDoodle.height)> 2*HEIGHT) {
-				maFenetreMort = new FenetreMort(score);
+				FenetreMort maFenetreMort = new FenetreMort(score);
 				monDoodle.y=0;// sinon la fenêtre s'ouvre constamment faut trouve un moyen d'arrêter totalement la fenêtre jeu
 				maFenetreMort.setVisible(true);
 				this.setVisible(false);
