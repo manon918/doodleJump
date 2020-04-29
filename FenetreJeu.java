@@ -74,11 +74,11 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			addKeyListener(this);
 			this.add(monDoodle.support);
 
-			double pourcentage = 0.04;
+			double pourcentage = 0.02;
 			int calculNbPalier= (int)(HEIGHT*pourcentage);
 			for (int i=0 ; i<calculNbPalier; i++) {
-				int a = (int) (Math.random() * (HEIGHT - 15));
-				int b = (int) (Math.random() * (WIDTH - 58));
+				int a = (int) (Math.random() * (HEIGHT - monPalier.height));
+				int b = (int) (Math.random() * (WIDTH -monPalier.width));
 				creationPalier(a,b);
 			}
 
@@ -100,14 +100,13 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 
 	/** ne fonctionne pas
 	 */
-		public void CheckPallier(int a,int b){
-			boolean test;
-			for (int i =0; i< listePalier.size()-1 ; i++){
-				if (( Math.abs(listePalier.get(i).x-listePalier.get(i+1).x)<60)&& (Math.abs(listePalier.get(i).y-listePalier.get(i+1).y)<20)){
-					listePalier.get(i).setX(listePalier.get(i).x+100);
-					listePalier.get(i).setY(listePalier.get(i).y-30);
+		public boolean checkPalier(int a ,int b){
+			boolean test= true;
+			for(int i=0 ; i<listePalier.size(); i++){
+				if((Math.abs (listePalier.get(i).x-a)<monPalier.width )&&(Math.abs(listePalier.get(i).y-b)<monPalier.height )) {
+					test = false;
 				}
-			}
+			}return test;
 		}
 
 		/** créée des paliers de secours hors de la fenêtres qui descendent lorsque la distance entre le doodle et les paliers existant
@@ -130,8 +129,8 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		public void collision() {
 			for (int i = 0; i < listePalier.size(); i++) {
 				if (monDoodle.vitesseY > 0) {
-					if (((monDoodle.y + monDoodle.height) < (listePalier.get(i).y + listePalier.get(i).height + 5)) && ((monDoodle.y + monDoodle.height + 5) > (listePalier.get(i).y))) { //test des Y
-						if (((monDoodle.x + monDoodle.width - 22) > (listePalier.get(i).x)) && ((monDoodle.x) < (listePalier.get(i).x + listePalier.get(i).width))) {             //test des x
+					if (((monDoodle.y + monDoodle.height) < (listePalier.get(i).y + listePalier.get(i).height + 5)) && ((monDoodle.y + monDoodle.height + 5) > (listePalier.get(i).y))) {
+						if (((monDoodle.x + monDoodle.width - 22) > (listePalier.get(i).x)) && ((monDoodle.x) < (listePalier.get(i).x + listePalier.get(i).width))) {
 							monDoodle.saut();
 						}
 					}
@@ -144,7 +143,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			if(monDoodle.x>WIDTH) {
 				monDoodle.x=0;
 			}
-			if(monDoodle.x<0) {
+			if(monDoodle.x+monDoodle.width<0) {
 				monDoodle.x=WIDTH;
 			}
 		}
@@ -157,31 +156,37 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 				 int depassement = hauteurMax - monDoodle.y;
 				 monDoodle.setY(hauteurMax);
 				 for (int i = 0; i < listePalier.size(); i++) {
-				 	listePalier.get(i).setY(listePalier.get(i).y + depassement);
-				 	listePalier.get(i).support.setLocation(listePalier.get(i).x, listePalier.get(i).y);
+					 listePalier.get(i).setY(listePalier.get(i).y + depassement);
+					 listePalier.get(i).support.setLocation(listePalier.get(i).x, listePalier.get(i).y);
 
-				 	double a =Math.random();
-				 	double prob= 0.80;
-				 	if ((listePalier.get(i).y > HEIGHT)&&(score < 3000)){
-				 		int b =(int) (Math.random()*80);
-				 		listePalier.get(i).setY(-20-b);
-				 		listePalier.get(i).setX((int) (Math.random() * (WIDTH - 58)));
-				 		deltaY=0;
-				 	}
-				 	if ((listePalier.get(i).y > HEIGHT)&&(score>3000)){
-				 		if (a < prob){
-				 			int b =(int) (Math.random()*80);
-				 			listePalier.get(i).setY(-20-b);
-				 			listePalier.get(i).setX((int) (Math.random() * (WIDTH - 58)));
-				 			deltaY=0;
-				 		}else {
-				 			listePalierStock.add(listePalier.get(i));
-				 			listePalier.remove(i);
-				 		}
-				 	}
+					 double a = Math.random();
+					 double prob = 0.80;
+					 if ((listePalier.get(i).y > HEIGHT) && (score < 3000)) {
+						 int b = (int) (Math.random() * 80);
+						 int d = (int) (Math.random() * (WIDTH - monPalier.width));
+						 while (checkPalier(d, b) == false) {
+							 b = (int) (Math.random() * 80);
+							 d = (int) (Math.random() * (WIDTH - monPalier.width));
+						 }
+						 listePalier.get(i).setY(-20 - b);
+						 listePalier.get(i).setX(d);
+						 deltaY = 0;
+					 }
+					 if ((listePalier.get(i).y > HEIGHT) && (score > 3000)) {
+						 if (a < prob) {
+							 int b = (int) (Math.random() * 80);
+							 listePalier.get(i).setY(-20 - b);
+							 listePalier.get(i).setX((int) (Math.random() * (WIDTH - monPalier.width)));
+							 deltaY = 0;
+						 } else {
+							 listePalierStock.add(listePalier.get(i));
+							 listePalier.remove(i);
+						 }
+					 }
 				 }
+
 				 score += depassement;
-				 deltaY+= depassement;
+				 deltaY += depassement;
 			 }
 		 }
 

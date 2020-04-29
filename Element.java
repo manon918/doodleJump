@@ -4,11 +4,11 @@ import java.awt.event.*;
 
 public class Element extends JFrame {
 
+    protected int width;
+    protected int height;
     protected int x;
     protected int y;
     protected JLabel support;
-    protected int width;
-    protected int height;
 
     public Element (int x, int y , JLabel support){
         this.x= x;
