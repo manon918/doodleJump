@@ -107,7 +107,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		public boolean checkPalier(int a ,int b){
 			boolean test= true;
 			for (int i = 0; i < listePalier.size(); i++) {
-				if ((b < (listePalier.get(i).y + monPalier.height)) && (b > (listePalier.get(i).y))) {
+				if ((b > (listePalier.get(i).y + monPalier.height)) && (b < (listePalier.get(i).y))) {
 					if (((a + monPalier.width) > (listePalier.get(i).x)) && (a < (listePalier.get(i).x+monPalier.width))) {
 						test = false;
 					}
@@ -170,15 +170,15 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 					 double prob = 0.90;
 					 if (listePalier.get(i).y > HEIGHT) {
 						 if (a < prob) {
-							 int b = (int) (Math.random() * 80);
+							 int b = (int) (-20 - Math.random()*80);
 							 int d = (int) (Math.random() * (WIDTH - monPalier.width));
 							 while (!checkPalier(d, b)) {
-								 b = (int) (Math.random() * 80);
+								 b = (int) (-20 - Math.random()*80);
 								 d = (int) (Math.random() * (WIDTH - monPalier.width));
 								 System.out.println(b);
 								 System.out.println(d);
 							 }
-							 listePalier.get(i).setY(-20 - b);
+							 listePalier.get(i).setY(b);
 							 listePalier.get(i).setX(d);
 							 deltaY = 0;
 						 } else {
