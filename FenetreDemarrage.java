@@ -13,10 +13,15 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
 	ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png");
 	ImageIcon imageTitre= new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Titre.png");*/
 
-    ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Doodle.png");
+    /*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Doodle.png");
     ImageIcon imagePalier= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\palier.png");
     ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");
-    ImageIcon imageTitre= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Titre.png");
+    ImageIcon imageTitre= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Titre.png");*/
+
+    ImageIcon imageDoodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); //killian//killian//killian//killian//killian//killian//killian
+    ImageIcon imagePalier= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\palier.png");     //killian//killian//killian//killian//killian//killian
+    ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");    //killian//killian//killian//killian//killian//killian//killian
+    ImageIcon imageTitre= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Titre.png");   //killian//killian//killian//killian//killian//killian//killian
 
     private JButton monBoutonDemarrer;
 
@@ -78,18 +83,18 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
         this.setVisible(true);
 
     }
-    
-		public void collision (){
-            for (Palier palier : listePalier) {
-                if (monDoodle.vitesseY > 0) {
-                    if (((monDoodle.y + monDoodle.height) < (palier.y + palier.height+5)) && ((monDoodle.y + monDoodle.height+5) > (palier.y))) {
-                        if (((monDoodle.x + monDoodle.width - 22) > (palier.x)) && ((monDoodle.x) < (palier.x + palier.width))) {
-                            monDoodle.saut();
-                        }
+
+    public void collision() {
+        for (Palier palier : listePalier) {
+            if (monDoodle.vitesseY > 0) {
+                if (((monDoodle.y + monDoodle.height) < (palier.y + 1.25*palier.height)) && ((monDoodle.y + 1.1*monDoodle.height) > (palier.y))) {
+                    if (((monDoodle.x + 0.6*monDoodle.width) > (palier.x)) && ((monDoodle.x) < (palier.x + palier.width))) {
+                        monDoodle.saut();
                     }
                 }
             }
-		}
+        }
+    }
 
 
     /**

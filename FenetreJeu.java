@@ -33,15 +33,19 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		LinkedList<Palier> listePalier = new LinkedList<>();
 		LinkedList<Palier> listePalierStock = new LinkedList<>();
 
-	ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
+		/*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon imagePalier= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\pallier.png");
-		ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");
+		ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");*/
 		/*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon imagePalier = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\palier.png");
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png");*/
+		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); //killian//killian//killian//killian
+		ImageIcon imagePalier= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\palier.png");//killian//killian//killian//killian
+		ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");//killian//killian//killian//killian//killian
 
 
-		final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();// la fenêtre s'adapte à la taille de l'écran ordinateur
+
+	final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();// la fenêtre s'adapte à la taille de l'écran ordinateur
 		final int WIDTH= HEIGHT/2; // initialisation largeur Fenetre de jeu
 
 		JLabel labelDoodle;
@@ -74,7 +78,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			monDoodle= new Doodle(x,y,labelDoodle);
 			this.add(monDoodle.support);
 
-			double pourcentage = 0.02;
+			double pourcentage = 0.04;
 			int calculNbPalier= (int)(HEIGHT*pourcentage);
 			for (int i=0 ; i<calculNbPalier; i++) {
 				int a = (int) (Math.random() * (HEIGHT - monPalier.height));
@@ -102,11 +106,13 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 	 */
 		public boolean checkPalier(int a ,int b){
 			boolean test= true;
-			for (Palier palier : listePalier)
-				if ((Math.abs(palier.x - a) < monPalier.width) && (Math.abs(palier.y - b) < monPalier.height)) {
-					test = false;
-
+			for (int i = 0; i < listePalier.size(); i++) {
+				if ((b < (listePalier.get(i).y + monPalier.height)) && (b > (listePalier.get(i).y))) {
+					if (((a + monPalier.width) > (listePalier.get(i).x)) && (a < (listePalier.get(i).x+monPalier.width))) {
+						test = false;
+					}
 				}
+			}
 			return test;
 		}
 
@@ -130,8 +136,8 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		public void collision() {
 			for (Palier palier : listePalier) {
 				if (monDoodle.vitesseY > 0) {
-					if (((monDoodle.y + monDoodle.height) < (palier.y + palier.height + 5)) && ((monDoodle.y + monDoodle.height + 5) > (palier.y))) {
-						if (((monDoodle.x + monDoodle.width - 22) > (palier.x)) && ((monDoodle.x) < (palier.x + palier.width))) {
+					if (((monDoodle.y + monDoodle.height) < (palier.y + 1.25*palier.height)) && ((monDoodle.y + 1.1*monDoodle.height) > (palier.y))) {
+						if (((monDoodle.x + 0.6*monDoodle.width) > (palier.x)) && ((monDoodle.x) < (palier.x + palier.width))) {
 							monDoodle.saut();
 						}
 					}
@@ -161,23 +167,19 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 					 listePalier.get(i).support.setLocation(listePalier.get(i).x, listePalier.get(i).y);
 
 					 double a = Math.random();
-					 double prob = 0.80;
-					 if ((listePalier.get(i).y > HEIGHT) && (score < 3000)) {
-						 int b = (int) (Math.random() * 80);
-						 int d = (int) (Math.random() * (WIDTH - monPalier.width));
-						 while (!checkPalier(d, b)) {
-							 b = (int) (Math.random() * 80);
-							 d = (int) (Math.random() * (WIDTH - monPalier.width));
-						 }
-						 listePalier.get(i).setY(-20 - b);
-						 listePalier.get(i).setX(d);
-						 deltaY = 0;
-					 }
-					 if ((listePalier.get(i).y > HEIGHT) && (score > 3000)) {
+					 double prob = 0.90;
+					 if (listePalier.get(i).y > HEIGHT) {
 						 if (a < prob) {
 							 int b = (int) (Math.random() * 80);
+							 int d = (int) (Math.random() * (WIDTH - monPalier.width));
+							 while (!checkPalier(d, b)) {
+								 b = (int) (Math.random() * 80);
+								 d = (int) (Math.random() * (WIDTH - monPalier.width));
+								 System.out.println(b);
+								 System.out.println(d);
+							 }
 							 listePalier.get(i).setY(-20 - b);
-							 listePalier.get(i).setX((int) (Math.random() * (WIDTH - monPalier.width)));
+							 listePalier.get(i).setX(d);
 							 deltaY = 0;
 						 } else {
 							 listePalierStock.add(listePalier.get(i));

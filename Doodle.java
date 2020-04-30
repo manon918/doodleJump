@@ -18,8 +18,8 @@ public class Doodle extends Element {
     public Doodle(int x, int y, JLabel doodle){
 
         super(x,y,doodle);
-        this.height = (HEIGHT/24);
-        this.width = (WIDTH/12);
+        this.height = (HEIGHT/20);
+        this.width = (WIDTH/10);
         doodle.setBounds(x,y,width, height);
         doodle.setLayout(null);
         vitesseX = 0;
@@ -27,8 +27,8 @@ public class Doodle extends Element {
     }
     public Doodle(int x, int y){
         super(x,y);
-        this.height = (HEIGHT/24);
-        this.width = (WIDTH/12);
+        this.height = (HEIGHT/20);
+        this.width = (WIDTH/10);
         vitesseX = 0;
         vitesseY = -25;
     }
