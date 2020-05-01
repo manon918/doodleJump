@@ -41,6 +41,10 @@ public class Doodle extends Element {
         vitesseY= -25;
     }
 
+    public void superSaut (){
+        vitesseY= -60;
+    }
+
     public void bougeX() {
         if(droite) {
             if (vitesseX < vitesseMaxX) {
