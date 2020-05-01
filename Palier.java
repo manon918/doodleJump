@@ -13,11 +13,6 @@ public class Palier extends Element {
         palier.setBounds(x, y, width, height);
         palier.setLayout(null);
     }
-    public Palier(int x, int y){
-        super(x,y);
-        this.width = (HEIGHT/18);
-        this.height = (WIDTH/29);
-    }
 }
 
 

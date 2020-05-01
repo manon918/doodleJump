@@ -10,18 +10,15 @@ public class FenetreMort extends JFrame implements ActionListener{
 	//ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\gameover.png");
 	//ImageIcon imageFond = new ImageIcon("C:\\Users\\faust\\Downloads\\doodleJump-master\\Fond.png");
 	//ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\faust\\Downloads\\doodleJump-master\\doodleJump-master\\gameover.png");
-	/*ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\ProjetDoodleJump\\Fond.png");
-	ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\manon\\ProjetDoodleJump\\gameover.png");*/
-	ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");
-	ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\utilisateur\\doodleJump\\gameover.png");
-
-
+	ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\ProjetDoodleJump\\Fond.png");
+	ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\manon\\ProjetDoodleJump\\gameover.png");
+	/*ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");
+	ImageIcon imagePerdu = new ImageIcon ("C:\\Users\\utilisateur\\doodleJump\\gameover.png");*/
 
 	protected int score ;
 
-
-	final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();// la fenêtre s'adapte à la taille de l'écran ordinateur
-	final int WIDTH=HEIGHT/2; // initialisation largeur Fenetre de démarrage
+	final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	final int WIDTH=HEIGHT/2;
 
 
 	public FenetreMort(int sc) {
@@ -42,7 +39,7 @@ public class FenetreMort extends JFrame implements ActionListener{
 		monBoutonRejouer.setBounds((500/2)-80,500-200,160,50);
 		monBoutonRejouer.setBackground(Color.RED);
 		monBoutonRejouer.setForeground(Color.white);
-		monBoutonRejouer.addActionListener(this);// branchement de l'écouteur
+		monBoutonRejouer.addActionListener(this);
 		this.add(monBoutonRejouer);
 
 		JLabel monEtiquetteScore = new JLabel("Score = " + score);
@@ -53,7 +50,7 @@ public class FenetreMort extends JFrame implements ActionListener{
 		this.add(monEtiquetteScore);		
 		
 
-		imageFond = new ImageIcon(imageFond.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT));	//Redimensionnement de l'image de fond pour ajustement à la fenêtre
+		imageFond = new ImageIcon(imageFond.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT));
 		JLabel labelFond = new JLabel(imageFond);
 		labelFond.setBounds(0, 0, WIDTH, HEIGHT);
 		this.add(labelFond);

@@ -13,15 +13,15 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
 	ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png");
 	ImageIcon imageTitre= new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Titre.png");*/
 
-    /*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Doodle.png");
+    ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Doodle.png");
     ImageIcon imagePalier= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\palier.png");
     ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");
-    ImageIcon imageTitre= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Titre.png");*/
+    ImageIcon imageTitre= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Titre.png");
 
-    ImageIcon imageDoodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); //killian//killian//killian//killian//killian//killian//killian
+    /*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); //killian//killian//killian//killian//killian//killian//killian
     ImageIcon imagePalier= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\palier.png");     //killian//killian//killian//killian//killian//killian
     ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");    //killian//killian//killian//killian//killian//killian//killian
-    ImageIcon imageTitre= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Titre.png");   //killian//killian//killian//killian//killian//killian//killian
+    ImageIcon imageTitre= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Titre.png");   //killian//killian//killian//killian//killian//killian//killian*/
 
     private JButton monBoutonDemarrer;
 
@@ -31,8 +31,8 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
     private int y;
 
 
-    Doodle monDoodle= new Doodle (x,y);
-    Palier monPalier= new Palier (x,y);
+    Doodle monDoodle;
+    Palier monPalier;
     JLabel labelDoodle;
     JLabel labelPalier;
 
@@ -49,10 +49,10 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        imageDoodle = new ImageIcon(imageDoodle.getImage().getScaledInstance(monDoodle.width ,monDoodle.height, Image.SCALE_DEFAULT));
+        imageDoodle = new ImageIcon(imageDoodle.getImage().getScaledInstance((WIDTH/10) ,(HEIGHT/20), Image.SCALE_DEFAULT));
         labelDoodle = new JLabel (imageDoodle);
-        x=(WIDTH-monDoodle.width)/2;
-        y=(HEIGHT+monDoodle.height)/2;
+        x=(WIDTH-(WIDTH/10))/2;
+        y=(HEIGHT+(HEIGHT/20))/2;
         monDoodle= new Doodle(x,y,labelDoodle);
         this.add(monDoodle.support);
 
@@ -68,9 +68,9 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
         monBoutonDemarrer.addActionListener(this);
         this.add(monBoutonDemarrer);
 
-		imagePalier = new ImageIcon(imagePalier.getImage().getScaledInstance(monPalier.width, monPalier.height, Image.SCALE_DEFAULT));
+		imagePalier = new ImageIcon(imagePalier.getImage().getScaledInstance((HEIGHT/18),(WIDTH/29) , Image.SCALE_DEFAULT));
 		labelPalier= new JLabel (imagePalier);
-        monPalier = new Palier((WIDTH-monPalier.width)/2, monDoodle.y+monDoodle.height, labelPalier);
+        monPalier = new Palier((WIDTH-HEIGHT/18)/2, monDoodle.y+monDoodle.height, labelPalier);
         this.add(monPalier.support);
         listePalier.add(monPalier);
 

@@ -33,34 +33,29 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		LinkedList<Palier> listePalier = new LinkedList<>();
 		LinkedList<Palier> listePalierStock = new LinkedList<>();
 
-		/*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
+		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon imagePalier= new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\pallier.png");
-		ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");*/
+		ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");
 		/*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
 		ImageIcon imagePalier = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\palier.png");
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png");*/
-		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); //killian//killian//killian//killian
+		/*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); //killian//killian//killian//killian
 		ImageIcon imagePalier= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\palier.png");//killian//killian//killian//killian
-		ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");//killian//killian//killian//killian//killian
+		ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");//killian//killian//killian//killian//killian*/
 
-
-
-	final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();// la fenêtre s'adapte à la taille de l'écran ordinateur
-		final int WIDTH= HEIGHT/2; // initialisation largeur Fenetre de jeu
+		final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		final int WIDTH= HEIGHT/2;
 
 		JLabel labelDoodle;
 		JLabel labelPalier;
 
-		private int x=WIDTH/2;
-		private int y=HEIGHT/2;
-
-		Doodle monDoodle = new Doodle(x, y);
-		Palier monPalier=new Palier(x, y);
+		Doodle monDoodle;
+		Palier monPalier;
 
 		private int deltaY=0;
 		int hauteurMax= HEIGHT*2/5;
 		int score;
-		Timer mt= new Timer(40,this); //initialisation du timer
+		Timer mt= new Timer(40,this);
 
 
 	public FenetreJeu() {
@@ -70,23 +65,22 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			this.setLocationRelativeTo(null);
 			this.setResizable(false);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 			addKeyListener(this);
-
-			imageDoodle = new ImageIcon(imageDoodle.getImage().getScaledInstance(monDoodle.width ,monDoodle.height, Image.SCALE_DEFAULT));
-			labelDoodle = new JLabel (imageDoodle);
-			monDoodle= new Doodle(x,y,labelDoodle);
-			this.add(monDoodle.support);
 
 			double pourcentage = 0.02;
 			int calculNbPalier= (int)(HEIGHT*pourcentage);
 			for (int i=0 ; i<calculNbPalier; i++) {
-				int a = (int) (Math.random() * (HEIGHT - monPalier.height));
-				int b = (int) (Math.random() * (WIDTH -monPalier.width));
+				int a = (int) (Math.random() * (HEIGHT - WIDTH/29));
+				int b = (int) (Math.random() * (WIDTH -HEIGHT/18));
 				creationPalier(a,b);
 			}
 
-			imageFond = new ImageIcon(imageFond.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT));	//Redimensionnement de l'image de fond pour ajustement à la fenêtre
+			imageDoodle = new ImageIcon(imageDoodle.getImage().getScaledInstance((WIDTH/10) ,(HEIGHT/20), Image.SCALE_DEFAULT));
+			labelDoodle = new JLabel (imageDoodle);
+			monDoodle= new Doodle(((WIDTH-(WIDTH/10))/2), (HEIGHT+(HEIGHT/20))/2,labelDoodle);
+			this.add(monDoodle.support);
+
+			imageFond = new ImageIcon(imageFond.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT));
 			JLabel labelFond = new JLabel(imageFond);
 			labelFond.setBounds(0, 0, WIDTH, HEIGHT);
 			this.add(labelFond);
@@ -95,7 +89,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		}
 
 		public void creationPalier(int a, int b ){
-				imagePalier = new ImageIcon(imagePalier.getImage().getScaledInstance(monPalier.width, monPalier.height, Image.SCALE_DEFAULT)); // permet de redimensionner le pallier si besoin
+				imagePalier = new ImageIcon(imagePalier.getImage().getScaledInstance(HEIGHT/18, WIDTH/29, Image.SCALE_DEFAULT));
 				labelPalier= new JLabel (imagePalier);
 				monPalier = new Palier(b, a, labelPalier);
 				this.add(monPalier.support);
@@ -196,8 +190,8 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		public void checkMort() {
 			if((monDoodle.y+monDoodle.height)> 2*HEIGHT) {
 				FenetreMort maFenetreMort = new FenetreMort(score);
-				monDoodle.y=0;// sinon la fenêtre s'ouvre constamment faut trouve un moyen d'arrêter totalement la fenêtre jeu
 				maFenetreMort.setVisible(true);
+				mt.stop();
 				this.setVisible(false);
 			}
 		}

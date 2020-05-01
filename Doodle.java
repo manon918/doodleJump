@@ -12,7 +12,7 @@ public class Doodle extends Element {
     protected boolean gauche= false;
     protected boolean stopDroite= false;
     protected boolean stopGauche= false;
-    final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();// la fenêtre s'adapte à la taille de l'écran ordinateur
+    final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     final int WIDTH= HEIGHT/2; // initialisation largeur Fenetre de jeu
 
     public Doodle(int x, int y, JLabel doodle){
@@ -22,13 +22,6 @@ public class Doodle extends Element {
         this.width = (WIDTH/10);
         doodle.setBounds(x,y,width, height);
         doodle.setLayout(null);
-        vitesseX = 0;
-        vitesseY = -25;
-    }
-    public Doodle(int x, int y){
-        super(x,y);
-        this.height = (HEIGHT/20);
-        this.width = (WIDTH/10);
         vitesseX = 0;
         vitesseY = -25;
     }
