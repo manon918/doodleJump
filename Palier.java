@@ -18,19 +18,19 @@ public class Palier extends Element {
     }
 
     public void bougePalierX(int cp) {
-        int reste = ((cp/10) % 2);
+        int reste = ((cp/50) % 2);
         if (reste == 0) {
-            x += 20 ;
+            x += 5 ;
         } else {
-            x -= 20 ;
+            x -= 5 ;
         }
     }
     public void bougePalierY(int cp) {
-        int reste =((cp/10) % 2);
+        int reste =((cp/50) % 2);
         if (reste == 0) {
-            y += 20 ;
+            y += 5 ;
         } else {
-            y -= 20;
+            y -= 5 ;
         }
     }
 }
