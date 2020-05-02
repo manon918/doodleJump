@@ -13,7 +13,7 @@ public class Doodle extends Element {
     protected boolean stopDroite= false;
     protected boolean stopGauche= false;
     final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-    final int WIDTH= HEIGHT/2; // initialisation largeur Fenetre de jeu
+    final int WIDTH= HEIGHT/2;
 
     public Doodle(int x, int y, JLabel doodle){
 

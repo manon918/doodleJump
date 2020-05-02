@@ -17,21 +17,21 @@ public class Palier extends Element {
         this.type = t;
     }
 
-    public void bougePalierX(Timer t) {
-        /*int reste = t/4000 % 2;
+    public void bougePalierX(int cp) {
+        int reste = ((cp/10) % 2);
         if (reste == 0) {
-           x += 2 ;
+            x += 20 ;
         } else {
-            x -= 2 ;
-        }*/
+            x -= 20 ;
+        }
     }
-    public void bougePalierY(Timer t) {
-        /*int reste = t/4000 % 2;
+    public void bougePalierY(int cp) {
+        int reste =((cp/10) % 2);
         if (reste == 0) {
-           y += 2 ;
+            y += 20 ;
         } else {
-            y -= 2 ;
-        }*/
+            y -= 20;
+        }
     }
 }
 
