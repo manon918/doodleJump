@@ -175,7 +175,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 									break;
 								case 4:
 									monDoodle.saut();
-									palier.x = (int) (Math.random() * (HEIGHT - WIDTH/29));
+									palier.x = (int) (Math.random() * (WIDTH -HEIGHT/18));
 									palier.y = -1000;
 									break;
 							}
