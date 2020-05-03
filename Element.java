@@ -19,5 +19,8 @@ public class Element extends JFrame {
     public void setY(int y) {
         this.y = y;
     }
+    public void setSupport (JLabel label){
+        support=label;
+    }
 
 }
