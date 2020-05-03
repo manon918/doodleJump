@@ -32,20 +32,20 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		LinkedList<Palier> listePalier = new LinkedList<>();
 		LinkedList<Palier> listePalierStock = new LinkedList<>();
 
-		/*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png");
+		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png");
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");
 		ImageIcon imagePalier0= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier.png");
 		ImageIcon imagePalier1= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier1.png");
 		ImageIcon imagePalier2= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier2.png");
 		ImageIcon imagePalier3= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier3.png");
 		ImageIcon imagePalier4= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier4.png");
-		ImageIcon imagePalier5= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier5.png");*/
+		ImageIcon imagePalier5= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier5.png");
 
 		/*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Doodle.png");
 		ImageIcon imagePalier = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\palier.png");
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png"); */
 
-		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); //killian//killian//killian//killian
+		/*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); //killian//killian//killian//killian
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");//killian//killian//killian//killian//killian
 		ImageIcon imagePalier0= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\palier.png");//killian//killian//killian//killian tu foooooooooorces
 		ImageIcon imagePalier1= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\palier1.png");//killian//killian//killian//killian toi tu force a effacer a chaque foiiiiiiiiiis
@@ -109,7 +109,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		/** créée des paliers de secours hors de la fenêtres qui descendent lorsque la distance entre le doodle et les paliers existant
 		 *  est supérieure à la distance parcouru par un saut (en hauteur) */
 		public void palierDeSecours() {
-			if (deltaY >HEIGHT/6) {//a modif en fontion de la taille de l'écran
+			if (deltaY >HEIGHT/6) {
 				int a = -20;
 				int b = (int) (Math.random() * (WIDTH-58));
 				if (listePalierStock.size ()>=1) {
@@ -169,6 +169,14 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			}
 			if(monDoodle.x+monDoodle.width<0) {
 				monDoodle.x=WIDTH;
+			}
+			for (int i=0;i<listePalier.size();i++) {
+				if (listePalier.get(i).x > WIDTH) {
+					listePalier.get(i).setX(-listePalier.get(i).width);
+				}
+				if (listePalier.get(i).x  + listePalier.get(i).width < 0) {
+					listePalier.get(i).setX(WIDTH);
+				}
 			}
 		}
 
@@ -260,6 +268,16 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 				type = 5;
 			}return type;
 		}
+		public void bougePalier(){
+			for(int i=0 ; i<listePalier.size();i++){
+				if (listePalier.get(i).type==2){
+					int a = 3;
+					listePalier.get(i).setX(listePalier.get(i).x + a);
+					listePalier.get(i).support.setLocation(listePalier.get(i).x,listePalier.get(i).y );
+
+				}
+			}
+		}
 
 		public void actionPerformed(ActionEvent e) {
 
@@ -268,6 +286,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			monDoodle.tombeDoodle();
 			monDoodle.bougeX();
 			bougeEcran();
+			bougePalier();
 			collision();
 			palierDeSecours();
 			checkSortieEcran();
