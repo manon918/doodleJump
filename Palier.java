@@ -12,9 +12,10 @@ public class Palier extends Element {
         super(x,y, palier);
         this.width = HEIGHT/18;
         this.height = WIDTH/29;
+        this.type = t;
         palier.setBounds(x, y, width, height);
         palier.setLayout(null);
-        this.type = t;
+
     }
 
 }

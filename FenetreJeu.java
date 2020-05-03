@@ -89,7 +89,6 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 				int b = (int) (Math.random() * (WIDTH -HEIGHT/18));
 				creationPalier(a,b);
 			}
-
 			imageFond = new ImageIcon(imageFond.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT));
 			JLabel labelFond = new JLabel(imageFond);
 			labelFond.setBounds(0, 0, WIDTH, HEIGHT);
@@ -100,8 +99,8 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 
 		public void creationPalier(int a, int b ){
 			int s = (int)(95*Math.random());
-			int ty = typePalier(s);
-
+			int ty = type(s);
+			labelPalier = typePalier(ty);
 			monPalier = new Palier(b, a, labelPalier, ty);
 			this.add(monPalier.support);
 			listePalier.add(monPalier);
@@ -110,7 +109,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		/** créée des paliers de secours hors de la fenêtres qui descendent lorsque la distance entre le doodle et les paliers existant
 		 *  est supérieure à la distance parcouru par un saut (en hauteur) */
 		public void palierDeSecours() {
-			if (deltaY >200) {//a modif
+			if (deltaY >200) {//a modif en fontion de la taille de l'écran
 				int a = -20;
 				int b = (int) (Math.random() * (WIDTH-58));
 				if (listePalierStock.size ()>=1) {
@@ -148,7 +147,6 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 									palier.y = -1000;
 									break;
 							}
-
 						}
 					}
 				}
@@ -158,8 +156,8 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 						maFenetreMort.setVisible(true);
 						mt.stop();
 						this.setVisible(false);
-					}
 				}
+			}
 		}
 
 		/** permet la sortie de l'écran d'un côté pour revenir de l'autre*/
@@ -195,43 +193,31 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 								 deltaY = 0;
 							 }
 							 int s = (int)(100*Math.random());
-							 int w =  typePalier(s);
-
+							 int w =  type(s);
+							 listePalier.get(i).type=w;
 							 switch (w) { // ici on change le type et l'image du palier déja existant permet l'apparition de nouveau type de palier par rapport à la distribution initiale
 								 case 0:
-									 w = 0;
-									 listePalier.get(i).type = w;
+									 imagePalier0 = new ImageIcon(imagePalier0.getImage().getScaledInstance(monPalier.width, monPalier.height, Image.SCALE_DEFAULT));
 									 listePalier.get(i).support.setIcon(imagePalier0);
-
 									 break;
 								 case 1:
-									 w = 1;
-									 listePalier.get(i).type = w;
+									 imagePalier1 = new ImageIcon(imagePalier1.getImage().getScaledInstance(monPalier.width, monPalier.height, Image.SCALE_DEFAULT));
 									 listePalier.get(i).support.setIcon(imagePalier1);
-
 								 case 2:
-									 w = 2;
-									 listePalier.get(i).type = w;
+									 imagePalier2 = new ImageIcon(imagePalier2.getImage().getScaledInstance(monPalier.width, monPalier.height, Image.SCALE_DEFAULT));
 									 listePalier.get(i).support.setIcon(imagePalier2);
-
 									 break;
 								 case 3:
-									 w = 3;
-									 listePalier.get(i).type = w;
+									 imagePalier3 = new ImageIcon(imagePalier3.getImage().getScaledInstance(monPalier.width, monPalier.height, Image.SCALE_DEFAULT));
 									 listePalier.get(i).support.setIcon(imagePalier3);
-
 									 break;
 								 case 4:
-									 w = 4;
-									 listePalier.get(i).type = w;
+									 imagePalier4 = new ImageIcon(imagePalier4.getImage().getScaledInstance(monPalier.width, monPalier.height, Image.SCALE_DEFAULT));
 									 listePalier.get(i).support.setIcon(imagePalier4);
-
 									 break;
 								 case 5:
-									 w = 5;
-									 listePalier.get(i).type = w;
+									 imagePalier5 = new ImageIcon(imagePalier5.getImage().getScaledInstance(monPalier.width, monPalier.height, Image.SCALE_DEFAULT));
 									 listePalier.get(i).support.setIcon(imagePalier5);
-
 									 break;
 							 }
 						 } else {
@@ -248,96 +234,56 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 
 
 	public void checkMort() {
-			if((monDoodle.y+monDoodle.height)> 1.3*HEIGHT) {
-				FenetreMort maFenetreMort = new FenetreMort(score);
-				maFenetreMort.setVisible(true);
-				mt.stop();
-				this.setVisible(false);
-			}
+		if((monDoodle.y+monDoodle.height)> 1.3*HEIGHT) {
+			FenetreMort maFenetreMort = new FenetreMort(score);
+			maFenetreMort.setVisible(true);
+			mt.stop();
+			this.setVisible(false);
 		}
-
-	public int  typePalier(int p){    //permet de creer le type de palier et d'attribuer l'image correspondante
-
-		int type =0;
-
-		if(p<70) {
-
-			type = 0;
-
-			imagePalier0 = new ImageIcon(imagePalier0.getImage().getScaledInstance(HEIGHT / 18, WIDTH / 29, Image.SCALE_DEFAULT));
-
-			labelPalier= new JLabel (imagePalier0);
-
-		}else if (p>71&&p<76) {
-
-			type = 1;
-
-			imagePalier1 = new ImageIcon(imagePalier1.getImage().getScaledInstance(HEIGHT / 18, WIDTH / 29, Image.SCALE_DEFAULT));
-
-			labelPalier= new JLabel (imagePalier1);
-
-		}else if (p>77&&p<83) {
-
-			type = 2;
-
-			imagePalier2 = new ImageIcon(imagePalier2.getImage().getScaledInstance(HEIGHT / 18, WIDTH / 29, Image.SCALE_DEFAULT));
-
-			labelPalier= new JLabel (imagePalier2);
-
-		}else if (p>84&&p<89) {
-
-			type = 3;
-
-			imagePalier3 = new ImageIcon(imagePalier3.getImage().getScaledInstance(HEIGHT / 18, WIDTH / 29, Image.SCALE_DEFAULT));
-
-			labelPalier= new JLabel (imagePalier3);
-
-		}else if (p>90&&p<95) {
-
-			type = 4;
-
-			imagePalier4 = new ImageIcon(imagePalier4.getImage().getScaledInstance(HEIGHT / 18, WIDTH / 29, Image.SCALE_DEFAULT));
-
-			labelPalier= new JLabel (imagePalier4);
-
-		}else if (p>96&&p<101){
-
-			type = 5;
-
-			imagePalier5 = new ImageIcon(imagePalier5.getImage().getScaledInstance(HEIGHT / 18, WIDTH / 29, Image.SCALE_DEFAULT));
-
-			labelPalier= new JLabel (imagePalier5);
-
-		}
-
-		return type;
-
-
-
 	}
 
-		public int  typePalier1(int p){    //permet de creer le type de palier et d'attribuer l'image correspondante
-			int type =0;
-			if(p<70) {
-				type = 0;
+	public JLabel typePalier(int p){
+		switch (p){
+			case 0:
+			imagePalier0 = new ImageIcon(imagePalier0.getImage().getScaledInstance(HEIGHT / 18, WIDTH / 29, Image.SCALE_DEFAULT));
+			labelPalier= new JLabel (imagePalier0);
+			break;
+			case 1:
+			imagePalier1 = new ImageIcon(imagePalier1.getImage().getScaledInstance(HEIGHT / 18, WIDTH / 29, Image.SCALE_DEFAULT));
+			labelPalier= new JLabel (imagePalier1);
+			break;
+			case 2:
+			imagePalier2 = new ImageIcon(imagePalier2.getImage().getScaledInstance(HEIGHT / 18, WIDTH / 29, Image.SCALE_DEFAULT));
+			labelPalier= new JLabel (imagePalier2);
+			case 3 :
+			imagePalier3 = new ImageIcon(imagePalier3.getImage().getScaledInstance(HEIGHT / 18, WIDTH / 29, Image.SCALE_DEFAULT));
+			labelPalier= new JLabel (imagePalier3);
+			break;
+			case 4:
+			imagePalier4 = new ImageIcon(imagePalier4.getImage().getScaledInstance(HEIGHT / 18, WIDTH / 29, Image.SCALE_DEFAULT));
+			labelPalier= new JLabel (imagePalier4);
+			break;
+			case 5:
+			imagePalier5 = new ImageIcon(imagePalier5.getImage().getScaledInstance(HEIGHT / 18, WIDTH / 29, Image.SCALE_DEFAULT));
+			labelPalier= new JLabel (imagePalier5);
+			break;
+		}
+		return labelPalier;
+	}
 
-			}else if (p>71&&p<76) {
+		public int type(int p){    //permet de creer le type de palier et d'attribuer l'image correspondante
+			int type=0;
+			if ((p>71)&&(p<=76)) {
 				type = 1;
-
-			}else if (p>77&&p<83) {
+			}else if ((p>76)&&(p<=83)) {
 				type = 2;
-
-			}else if (p>84&&p<89) {
+			}else if ((p>83)&&(p<=89)) {
 				type = 3;
-
-			}else if (p>90&&p<95) {
+			}else if ((p>89)&&(p<=95)) {
 				type = 4;
-
-			}else if (p>96&&p<101){
+			}else if ((p>95)&&(p<=101)){
 				type = 5;
-
 			}return type;
-
 		}
 
 		public void actionPerformed(ActionEvent e) {
