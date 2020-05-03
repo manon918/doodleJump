@@ -283,7 +283,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 
 
 	public void checkMort() {
-			if((monDoodle.y+monDoodle.height)> 2*HEIGHT) {
+			if((monDoodle.y+monDoodle.height)> 1.3*HEIGHT) {
 				FenetreMort maFenetreMort = new FenetreMort(score);
 				maFenetreMort.setVisible(true);
 				mt.stop();
