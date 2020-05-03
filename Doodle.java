@@ -40,6 +40,12 @@ public class Doodle extends Element {
     public void saut (){
         vitesseY= -25;
     }
+    public void petitSaut (){
+        vitesseY= -15;
+    }
+    public void moyenSaut (){
+        vitesseY= -35;
+    }
 
     public void superSaut (){
         vitesseY= -60;
