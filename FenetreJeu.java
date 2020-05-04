@@ -1,27 +1,3 @@
-/*
- * FenetreJeu.java
- * 
- * Copyright 2020 manon <manon@DESKTOP-OQ2RB61>
- * 
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301, USA.
- * 
- * 
- */
-//import com.sun.org.apache.xalan.internal.xsltc.dom.AbsoluteIterator;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -59,7 +35,6 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 
 		JLabel labelDoodle;
 		JLabel labelPalier;
-
 		Doodle monDoodle;
 		Palier monPalier;
 
@@ -69,13 +44,14 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		Timer mt= new Timer(40,this);
 
 	public FenetreJeu() {
-			mt.start();
+
 			this.setTitle("DoodleJump");
 			this.setSize(WIDTH, HEIGHT);
 			this.setLocationRelativeTo(null);
 			this.setResizable(false);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			addKeyListener(this);
+			mt.start();
 
 			imageDoodle = new ImageIcon(imageDoodle.getImage().getScaledInstance((WIDTH/10) ,(HEIGHT/20), Image.SCALE_DEFAULT));
 			labelDoodle = new JLabel (imageDoodle);
@@ -89,6 +65,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 				int b = (int) (Math.random() * (WIDTH -HEIGHT/18));
 				creationPalier(a,b);
 			}
+
 			imageFond = new ImageIcon(imageFond.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT));
 			JLabel labelFond = new JLabel(imageFond);
 			labelFond.setBounds(0, 0, WIDTH, HEIGHT);
@@ -97,10 +74,11 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			this.setVisible(true);
 		}
 
+		/**créée et place des palliers de manière aléatoire*/
 		public void creationPalier(int a, int b ){
 			int s = (int)(95*Math.random());
 			int ty = type(s);
-			labelPalier = new JLabel (typePalier(ty));
+			labelPalier = new JLabel (imageType(ty));
 			monPalier = new Palier(b, a, labelPalier, ty);
 			this.add(monPalier.support);
 			listePalier.add(monPalier);
@@ -124,7 +102,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 				}
 			}
 		}
-		/** détermine la collision entre le doodle et les paliers et lance la méthode saut*/
+		/** détermine la collision entre le doodle et les paliers en fonction de leur type et lance les méthodes de saut , toucher un palier de type 5: c'est perdu*/
 		public void collision() {
 			for (Palier palier : listePalier) {
 				if (monDoodle.vitesseY > 0) {
@@ -162,7 +140,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			}
 		}
 
-		/** permet la sortie de l'écran d'un côté pour revenir de l'autre*/
+		/** permet au doodle et au palier de type 3 la sortie de l'écran d'un côté pour revenir de l'autre*/
 		public void checkSortieEcran(){
 			if(monDoodle.x>WIDTH) {
 				monDoodle.x=-monDoodle.width;
@@ -171,17 +149,17 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 				monDoodle.x=WIDTH;
 			}
 			for (int i=0;i<listePalier.size();i++) {
-				if (listePalier.get(i).x > WIDTH) {
+				if ((listePalier.get(i).type==2)&&(listePalier.get(i).x > WIDTH)) {
 					listePalier.get(i).setX(-listePalier.get(i).width);
 				}
-				if (listePalier.get(i).x  + listePalier.get(i).width < 0) {
+				if  ((listePalier.get(i).type==2)&&(listePalier.get(i).x  + listePalier.get(i).width < 0)) {
 					listePalier.get(i).setX(WIDTH);
 				}
 			}
 		}
 
 	/** déplace les palliers vers le bas proportionellement à la hauteur du doodle
-	 Diminue le nombre de palliers en fonction du score
+	 Diminue le nombre de palliers en fonction du score, recycle les paliers qui tombe en les ramenant plus haut que l'écran de jeu et changent leurs types
 	 */
 	public void bougeEcran(){
 			 if(monDoodle.y< hauteurMax ) {
@@ -190,7 +168,6 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 				 for (int i = 0; i < listePalier.size(); i++) {
 					 listePalier.get(i).setY(listePalier.get(i).y + depassement);
 					 listePalier.get(i).support.setLocation(listePalier.get(i).x, listePalier.get(i).y);
-
 					 double a = Math.random();
 					 double prob = 0.90;
 					 if (listePalier.get(i).y > HEIGHT) {
@@ -204,7 +181,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 							 }
 							 int s = (int)(100*Math.random());
 							 int w =  type(s);
-							 ImageIcon img = typePalier(w);
+							 ImageIcon img = imageType(w);
 							 listePalier.get(i).type=w;
 							 listePalier.get(i).support.setIcon(img);
 						 } else {
@@ -218,8 +195,6 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			 }
 	}
 
-
-
 	public void checkMort() {
 		if((monDoodle.y+monDoodle.height)> 1.3*HEIGHT) {
 			FenetreMort maFenetreMort = new FenetreMort(score);
@@ -228,8 +203,8 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			this.setVisible(false);
 		}
 	}
-
-	public ImageIcon typePalier(int p){
+	/** renvoie l'image correspondante au type*/
+	public ImageIcon imageType(int p){
 		ImageIcon imagePalier=imagePalier0;
 		switch (p){
 			case 0:
@@ -254,7 +229,8 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		return imagePalier;
 	}
 
-		public int type(int p){    //permet de creer le type de palier et d'attribuer l'image correspondante
+		/** renvoie le type */
+		public int type(int p){
 			int type=0;
 			if ((p>71)&&(p<=76)) {
 				type = 1;
@@ -268,17 +244,25 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 				type = 5;
 			}return type;
 		}
-		public void bougePalier(){
-			for(int i=0 ; i<listePalier.size();i++){
-				if (listePalier.get(i).type==2){
-					int a = 3;
-					listePalier.get(i).setX(listePalier.get(i).x + a);
-					listePalier.get(i).support.setLocation(listePalier.get(i).x,listePalier.get(i).y );
 
+		/** déplace de manière continue les paliers de type 2 vers la gauche ou la droite selon leurs position dans la liste listePalier*/
+		public void bougePalier(){
+			int d = 3;
+			for(int i=0 ; i<listePalier.size();i++){
+				if ((listePalier.get(i).type==2)&&(i%2==0)){
+					listePalier.get(i).setX(listePalier.get(i).x + d);
+					listePalier.get(i).support.setLocation(listePalier.get(i).x,listePalier.get(i).y );
+				}
+				else if ((listePalier.get(i).type==2)&&(i%2!=0)){
+					listePalier.get(i).setX(listePalier.get(i).x - d);
+					listePalier.get(i).support.setLocation(listePalier.get(i).x,listePalier.get(i).y );
 				}
 			}
 		}
 
+	/**
+	 * Suite à un événement
+	 */
 		public void actionPerformed(ActionEvent e) {
 
 			this.setTitle("DoodleJump " + score);
@@ -296,38 +280,28 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		public void keyPressed (KeyEvent e){
 			switch (e.getKeyCode()) {
 				case KeyEvent.VK_RIGHT:
-				// action fleche droite
 					monDoodle.droite= true;
 					monDoodle.stopDroite= false;
 					monDoodle.gauche=false;
 					monDoodle.stopGauche=false;
 					break;
 				case KeyEvent.VK_LEFT:
-					// action flèche gauche
+
 					monDoodle.gauche= true;
 					monDoodle.stopGauche= false;
 					monDoodle.droite= false;
 					monDoodle.stopDroite= false;
 					break;
-
-
-				 //appuyer sur la flèche du haut pour faire sauter doodle à supprimer
-					case KeyEvent.VK_UP:
-					// action flèche haut
-					monDoodle.saut();
-					break;
 			}
 		}
 		public void keyReleased (KeyEvent e) {
 			if(e.getKeyCode()== KeyEvent.VK_RIGHT && monDoodle.vitesseX>0) {
-				// action relachement fleche droite
 				monDoodle.stopDroite= true;
 				monDoodle.droite= false;
 				monDoodle.stopGauche= false;
 				monDoodle.gauche= false;
 			}
 			if(e.getKeyCode()== KeyEvent.VK_LEFT && monDoodle.vitesseX<0) {
-				// action relachement flèche gauche
 				monDoodle.stopGauche= true;
 				monDoodle.gauche= false;
 				monDoodle.stopDroite= false;

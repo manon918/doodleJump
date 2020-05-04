@@ -1,4 +1,3 @@
-// Chargement des bibliothèques Swing et AWT
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -20,7 +19,6 @@ public class FenetreMort extends JFrame implements ActionListener{
 	final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	final int WIDTH=HEIGHT/2;
 
-
 	public FenetreMort(int sc) {
 		this.score = sc;
 		this.setSize(500, 500);
@@ -31,9 +29,8 @@ public class FenetreMort extends JFrame implements ActionListener{
 
 		JLabel perdu = new JLabel(imagePerdu);
 		perdu.setBounds(30,(500/2)-200,500-10,200);
-		perdu.setLayout(null);
+		//perdu.setLayout(null);
 		this.add(perdu);
-
 
 		monBoutonRejouer = new JButton("Rejouer");
 		monBoutonRejouer.setBounds((500/2)-80,500-200,160,50);
@@ -49,7 +46,6 @@ public class FenetreMort extends JFrame implements ActionListener{
 		monEtiquetteScore.setForeground(Color.black);
 		this.add(monEtiquetteScore);		
 		
-
 		imageFond = new ImageIcon(imageFond.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT));
 		JLabel labelFond = new JLabel(imageFond);
 		labelFond.setBounds(0, 0, WIDTH, HEIGHT);
@@ -57,7 +53,9 @@ public class FenetreMort extends JFrame implements ActionListener{
 
 		this.setVisible(false);
 	}
-	
+	/**
+	 * Suite à un événement
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()== monBoutonRejouer){
 			FenetreJeu maFenetreJeu = new FenetreJeu();

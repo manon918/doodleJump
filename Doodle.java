@@ -25,7 +25,7 @@ public class Doodle extends Element {
         vitesseX = 0;
         vitesseY = -25;
     }
-
+    /** reproduit les effets de la gravité sur le Doodle*/
     public void tombeDoodle(){
         int gravite= 1;
         if(vitesseY< vitesseMaxY){
@@ -46,11 +46,11 @@ public class Doodle extends Element {
     public void moyenSaut (){
         vitesseY= -35;
     }
-
     public void superSaut (){
         vitesseY= -60;
     }
 
+    /**Augmente la vitesse latérale du Doodle lorsque l'on appuie que les flèches G et D*/
     public void bougeX() {
         if(droite) {
             if (vitesseX < vitesseMaxX) {

@@ -1,12 +1,10 @@
-// Chargement des bibliothèques Swing et AWT
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.LinkedList;
 
 public class FenetreDemarrage extends JFrame implements ActionListener{
 
- /*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Doodle.png"); //à modifier selon l'emplacement de l'image sur votre ordi et le nom
+ /*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Doodle.png");
 	ImageIcon imagePalier= new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\palier.png");
 	ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png");
 	ImageIcon imageTitre= new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Titre.png");*/
@@ -25,21 +23,13 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
 
     final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     final int WIDTH=HEIGHT/2;
-    private int x;
-    private int y;
-
 
     Doodle monDoodle;
     Palier monPalier;
     JLabel labelDoodle;
     JLabel labelPalier;
 
-
-
-	public FenetreDemarrage(){
-		
-		Timer mt= new Timer(40,this);
-		mt.start();
+    public FenetreDemarrage(){
 
         this.setTitle("DoodleJump ");
         this.setSize(WIDTH,HEIGHT);
@@ -47,11 +37,14 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        Timer mt= new Timer(40,this);
+		mt.start();
+
         imageDoodle = new ImageIcon(imageDoodle.getImage().getScaledInstance((WIDTH/10) ,(HEIGHT/20), Image.SCALE_DEFAULT));
         labelDoodle = new JLabel (imageDoodle);
-        x=(WIDTH-(WIDTH/10))/2;
-        y=(HEIGHT+(HEIGHT/20))/2;
-        monDoodle= new Doodle(x,y,labelDoodle);
+        int x = (WIDTH - (WIDTH / 10))/2;
+        int y = (HEIGHT + (HEIGHT/20))/2;
+        monDoodle= new Doodle(x, y,labelDoodle);
         this.add(monDoodle.support);
 
         imageTitre = new ImageIcon(imageTitre.getImage().getScaledInstance(WIDTH, HEIGHT/6, Image.SCALE_DEFAULT));
@@ -71,14 +64,12 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
         monPalier = new Palier((WIDTH-HEIGHT/18)/2, monDoodle.y+monDoodle.height, labelPalier,0);
         this.add(monPalier.support);
 
-
         imageFond = new ImageIcon(imageFond.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT));
         JLabel labelFond = new JLabel(imageFond);
         labelFond.setLocation(0, 0);
         this.add(labelFond);
 
         this.setVisible(true);
-
     }
 
     public void collision() {
@@ -90,7 +81,6 @@ public class FenetreDemarrage extends JFrame implements ActionListener{
                 }
             }
         }
-
     /**
      * Suite à un événement
      */

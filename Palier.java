@@ -17,7 +17,6 @@ public class Palier extends Element {
         palier.setLayout(null);
 
     }
-
 }
 
 
