@@ -5,43 +5,31 @@ import java.util.LinkedList;
 
 public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 
-		LinkedList<Palier> listePalier = new LinkedList<>();
-		LinkedList<Palier> listePalierStock = new LinkedList<>();
+		final LinkedList<Palier> LISTEPALIER= new LinkedList<>();
+		final LinkedList<Palier> LISTEPALIERSTOCK= new LinkedList<>();
 
+		// à modifier selon l'emplacement des images
 		ImageIcon imageDoodle = new ImageIcon("C:\\Users\\manon\\IdeaProjects\\doodleJump\\src\\Doodle.png");
 		ImageIcon imageFond = new ImageIcon("C:\\Users\\manon\\projetDoodleJump\\Fond.png");
 		ImageIcon imagePalier0= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier.png");
-		ImageIcon imagePalier1= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier1.png");
-		ImageIcon imagePalier2= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier2.png");
-		ImageIcon imagePalier3= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier3.png");
-		ImageIcon imagePalier4= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier4.png");
-		ImageIcon imagePalier5= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier5.png");
-
-		/*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Doodle.png");
-		ImageIcon imagePalier = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\palier.png");
-		ImageIcon imageFond = new ImageIcon("C:\\Users\\marie\\OneDrive\\Bureau\\doodleJump\\Fond.png"); */
-
-		/*ImageIcon imageDoodle = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Doodle.png"); //killian//killian//killian//killian
-		ImageIcon imageFond = new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\Fond.png");//killian//killian//killian//killian//killian
-		ImageIcon imagePalier0= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\palier.png");//killian//killian//killian//killian tu foooooooooorces
-		ImageIcon imagePalier1= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\palier1.png");//killian//killian//killian//killian toi tu force a effacer a chaque foiiiiiiiiiis
-		ImageIcon imagePalier2= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\palier2.png");//killian//killian//killian//killian  tssssssssssss (déso pas déso)
-		ImageIcon imagePalier3= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\palier3.png");//killian//killian//killian//killian
-		ImageIcon imagePalier4= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\palier4.png");//killian//killian//killian//killian
-		ImageIcon imagePalier5= new ImageIcon("C:\\Users\\utilisateur\\doodleJump\\palier5.png");//killian//killian//killian//killian*/
+		final ImageIcon imagePalier1= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier1.png");
+		final ImageIcon imagePalier2= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier2.png");
+		final ImageIcon imagePalier3= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier3.png");
+		final ImageIcon imagePalier4= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier4.png");
+		final ImageIcon imagePalier5= new ImageIcon("C:\\Users\\manon\\DoodleFinal\\src\\palier5.png");
 
 		final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 		final int WIDTH= HEIGHT/2;
 
-		JLabel labelDoodle;
+		final JLabel LABELDOODLE;
 		JLabel labelPalier;
-		Doodle monDoodle;
+		final Doodle MONDOODLE;
 		Palier monPalier;
 
 		private int deltaY=0;
-		int hauteurMax= HEIGHT*2/5;
+		final int HAUTEURMAX= HEIGHT*2/5;
 		int score;
-		Timer mt= new Timer(40,this);
+		final Timer MT= new Timer(40,this);
 
 	public FenetreJeu() {
 
@@ -51,13 +39,17 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			this.setResizable(false);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			addKeyListener(this);
-			mt.start();
+			MT.start();
 
 			imageDoodle = new ImageIcon(imageDoodle.getImage().getScaledInstance((WIDTH/10) ,(HEIGHT/20), Image.SCALE_DEFAULT));
-			labelDoodle = new JLabel (imageDoodle);
-			monDoodle= new Doodle(((WIDTH-(WIDTH/10))/2), (HEIGHT+(HEIGHT/20))/2,labelDoodle);
-			this.add(monDoodle.support);
+			LABELDOODLE = new JLabel (imageDoodle);
+			MONDOODLE= new Doodle(((WIDTH-(WIDTH/10))/2), (HEIGHT+(HEIGHT/20))/2,LABELDOODLE);
+			this.add(MONDOODLE.SUPPORT);
 
+			JLabel labelA=new JLabel (imagePalier3);
+			Palier palierA =new Palier(HEIGHT/2,-10,labelA,3);
+			this.add(palierA.SUPPORT);
+			LISTEPALIER.add(palierA);
 			double pourcentage = 0.02;
 			int calculNbPalier= (int)(HEIGHT*pourcentage);
 			for (int i=0 ; i<calculNbPalier; i++) {
@@ -69,6 +61,7 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			imageFond = new ImageIcon(imageFond.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT));
 			JLabel labelFond = new JLabel(imageFond);
 			labelFond.setBounds(0, 0, WIDTH, HEIGHT);
+			labelFond.setLayout(null);
 			this.add(labelFond);
 
 			this.setVisible(true);
@@ -80,49 +73,48 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			int ty = type(s);
 			labelPalier = new JLabel (imageType(ty));
 			monPalier = new Palier(b, a, labelPalier, ty);
-			this.add(monPalier.support);
-			listePalier.add(monPalier);
+			this.add(monPalier.SUPPORT);
+			LISTEPALIER.add(monPalier);
 		}
 
-		/** créée des paliers de secours hors de la fenêtres qui descendent lorsque la distance entre le doodle et les paliers existant
-		 *  est supérieure à la distance parcouru par un saut (en hauteur) */
+		/** créée des paliers de secours hors de la fenêtres qui descendent lorsque la distance entre le doodle et les paliers est trop grande*/
 		public void palierDeSecours() {
 			if (deltaY >HEIGHT/6) {
 				int a = -20;
 				int b = (int) (Math.random() * (WIDTH-58));
-				if (listePalierStock.size ()>=1) {
-					listePalierStock.get(0).setX(b);
-					listePalierStock.get(0).setY(a);
-					listePalierStock.get(0).type=0;
+				if (LISTEPALIERSTOCK.size ()>=1) {
+					LISTEPALIERSTOCK.get(0).setX(b);
+					LISTEPALIERSTOCK.get(0).setY(a);
+					LISTEPALIERSTOCK.get(0).type=0;
 					imagePalier0 = new ImageIcon(imagePalier0.getImage().getScaledInstance(monPalier.width, monPalier.height, Image.SCALE_DEFAULT));
-					listePalierStock.get(0).support.setIcon(imagePalier0);
-					listePalier.add(listePalierStock.get(0));
-					listePalierStock.remove(0);
+					LISTEPALIERSTOCK.get(0).SUPPORT.setIcon(imagePalier0);
+					LISTEPALIER.add(LISTEPALIERSTOCK.get(0));
+					LISTEPALIERSTOCK.remove(0);
 					deltaY = 0;
 				}
 			}
 		}
 		/** détermine la collision entre le doodle et les paliers en fonction de leur type et lance les méthodes de saut , toucher un palier de type 5: c'est perdu*/
 		public void collision() {
-			for (Palier palier : listePalier) {
-				if (monDoodle.vitesseY > 0) {
-					if (((monDoodle.y + monDoodle.height) < (palier.y + 1.25 * palier.height)) && ((monDoodle.y + 1.1 * monDoodle.height) > (palier.y))) {
-						if (((monDoodle.x + 0.6 * monDoodle.width) > (palier.x)) && ((monDoodle.x) < (palier.x + palier.width))) {
+			for (Palier palier : LISTEPALIER) {
+				if (MONDOODLE.vitesseY > 0) {
+					if (((MONDOODLE.y + MONDOODLE.height) < (palier.y + 1.25 * palier.height)) && ((MONDOODLE.y + 1.1 * MONDOODLE.height) > (palier.y))) {
+						if (((MONDOODLE.x + 0.6 * MONDOODLE.width) > (palier.x)) && ((MONDOODLE.x) < (palier.x + palier.width))) {
 							switch (palier.type) {
 								case 0:
-									monDoodle.saut();
+									MONDOODLE.saut();
 									break;
 								case 1:
-									monDoodle.petitSaut();
+									MONDOODLE.petitSaut();
 									break;
 								case 2:
-									monDoodle.moyenSaut();
+									MONDOODLE.moyenSaut();
 									break;
 								case 3:
-									monDoodle.superSaut();
+									MONDOODLE.superSaut();
 									break;
 								case 4:
-									monDoodle.saut();
+									MONDOODLE.saut();
 									palier.x = (int) (Math.random() * (WIDTH -HEIGHT/18));
 									palier.y = -1000;
 									break;
@@ -130,30 +122,37 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 						}
 					}
 				}
-				if (((monDoodle.y ) < (palier.y +0.6*palier.height)) && ((monDoodle.y + 0.6*monDoodle.height) > (palier.y)) &&
-						((monDoodle.x + 0.6*monDoodle.width) > (palier.x)) && ((monDoodle.x) < (palier.x + palier.width)) && palier.type == 5 ) {
+				if (((MONDOODLE.y ) < (palier.y +0.6*palier.height)) && ((MONDOODLE.y + 0.6*MONDOODLE.height) > (palier.y)) &&
+						((MONDOODLE.x + 0.6*MONDOODLE.width) > (palier.x)) && ((MONDOODLE.x) < (palier.x + palier.width)) && palier.type == 5 ) {
 						FenetreMort maFenetreMort = new FenetreMort(score);
 						maFenetreMort.setVisible(true);
-						mt.stop();
+						MT.stop();
 						this.setVisible(false);
 				}
 			}
 		}
 
-		/** permet au doodle et au palier de type 3 la sortie de l'écran d'un côté pour revenir de l'autre*/
+		/** Détermine si le Doodle est toujours dans l'écran ,permet au doodle et au palier de type 3 la sortie de l'écran d'un côté pour revenir de l'autre*/
 		public void checkSortieEcran(){
-			if(monDoodle.x>WIDTH) {
-				monDoodle.x=-monDoodle.width;
+
+			if((MONDOODLE.y+MONDOODLE.height)> 1.3*HEIGHT) {
+				FenetreMort maFenetreMort = new FenetreMort(score);
+				maFenetreMort.setVisible(true);
+				MT.stop();
+				this.setVisible(false);
 			}
-			if(monDoodle.x+monDoodle.width<0) {
-				monDoodle.x=WIDTH;
+			if(MONDOODLE.x>WIDTH) {
+				MONDOODLE.x=-MONDOODLE.width;
 			}
-			for (int i=0;i<listePalier.size();i++) {
-				if ((listePalier.get(i).type==2)&&(listePalier.get(i).x > WIDTH)) {
-					listePalier.get(i).setX(-listePalier.get(i).width);
+			if(MONDOODLE.x+MONDOODLE.width<0) {
+				MONDOODLE.x=WIDTH;
+			}
+			for (Palier palier : LISTEPALIER) {
+				if ((palier.type == 2) && (palier.x > WIDTH)) {
+					palier.setX(-palier.width);
 				}
-				if  ((listePalier.get(i).type==2)&&(listePalier.get(i).x  + listePalier.get(i).width < 0)) {
-					listePalier.get(i).setX(WIDTH);
+				if ((palier.type == 2) && (palier.x + palier.width < 0)) {
+					palier.setX(WIDTH);
 				}
 			}
 		}
@@ -162,31 +161,31 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 	 Diminue le nombre de palliers en fonction du score, recycle les paliers qui tombe en les ramenant plus haut que l'écran de jeu et changent leurs types
 	 */
 	public void bougeEcran(){
-			 if(monDoodle.y< hauteurMax ) {
-				 int depassement = hauteurMax - monDoodle.y;
-				 monDoodle.setY(hauteurMax);
-				 for (int i = 0; i < listePalier.size(); i++) {
-					 listePalier.get(i).setY(listePalier.get(i).y + depassement);
-					 listePalier.get(i).support.setLocation(listePalier.get(i).x, listePalier.get(i).y);
+			 if(MONDOODLE.y< HAUTEURMAX) {
+				 int depassement = HAUTEURMAX- MONDOODLE.y;
+				 MONDOODLE.setY(HAUTEURMAX);
+				 for (int i = 0; i < LISTEPALIER.size(); i++) {
+					 LISTEPALIER.get(i).setY(LISTEPALIER.get(i).y + depassement);
+					 LISTEPALIER.get(i).SUPPORT.setLocation(LISTEPALIER.get(i).x, LISTEPALIER.get(i).y);
 					 double a = Math.random();
 					 double prob = 0.90;
-					 if (listePalier.get(i).y > HEIGHT) {
+					 if (LISTEPALIER.get(i).y > HEIGHT) {
 						 if (a < prob) {
 							 int b = (int) (-20 - Math.random()*80);
 							 int d = (int) (Math.random() * (WIDTH - monPalier.width));
-							 listePalier.get(i).setY(b);
-							 listePalier.get(i).setX(d);
-							 if(listePalier.get(i).type != 5 && listePalier.get(i).type != 1) {
+							 LISTEPALIER.get(i).setY(b);
+							 LISTEPALIER.get(i).setX(d);
+							 if(LISTEPALIER.get(i).type != 5 && LISTEPALIER.get(i).type != 1) {
 								 deltaY = 0;
 							 }
 							 int s = (int)(100*Math.random());
 							 int w =  type(s);
 							 ImageIcon img = imageType(w);
-							 listePalier.get(i).type=w;
-							 listePalier.get(i).support.setIcon(img);
+							 LISTEPALIER.get(i).type=w;
+							 LISTEPALIER.get(i).SUPPORT.setIcon(img);
 						 } else {
-							 listePalierStock.add(listePalier.get(i));
-							 listePalier.remove(i);
+							 LISTEPALIERSTOCK.add(LISTEPALIER.get(i));
+							 LISTEPALIER.remove(i);
 						 }
 					 }
 				 }
@@ -195,14 +194,6 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			 }
 	}
 
-	public void checkMort() {
-		if((monDoodle.y+monDoodle.height)> 1.3*HEIGHT) {
-			FenetreMort maFenetreMort = new FenetreMort(score);
-			maFenetreMort.setVisible(true);
-			mt.stop();
-			this.setVisible(false);
-		}
-	}
 	/** renvoie l'image correspondante au type*/
 	public ImageIcon imageType(int p){
 		ImageIcon imagePalier=imagePalier0;
@@ -245,17 +236,17 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 			}return type;
 		}
 
-		/** déplace de manière continue les paliers de type 2 vers la gauche ou la droite selon leurs position dans la liste listePalier*/
+		/** déplace de manière continue les paliers de type 2 vers la gauche ou la droite selon leurs position dans la liste LISTEPALIER*/
 		public void bougePalier(){
 			int d = 3;
-			for(int i=0 ; i<listePalier.size();i++){
-				if ((listePalier.get(i).type==2)&&(i%2==0)){
-					listePalier.get(i).setX(listePalier.get(i).x + d);
-					listePalier.get(i).support.setLocation(listePalier.get(i).x,listePalier.get(i).y );
+			for(int i=0 ; i<LISTEPALIER.size();i++){
+				if ((LISTEPALIER.get(i).type==2)&&(i%2==0)){
+					LISTEPALIER.get(i).setX(LISTEPALIER.get(i).x + d);
+					LISTEPALIER.get(i).SUPPORT.setLocation(LISTEPALIER.get(i).x,LISTEPALIER.get(i).y );
 				}
-				else if ((listePalier.get(i).type==2)&&(i%2!=0)){
-					listePalier.get(i).setX(listePalier.get(i).x - d);
-					listePalier.get(i).support.setLocation(listePalier.get(i).x,listePalier.get(i).y );
+				else if ((LISTEPALIER.get(i).type==2)&&(i%2!=0)){
+					LISTEPALIER.get(i).setX(LISTEPALIER.get(i).x - d);
+					LISTEPALIER.get(i).SUPPORT.setLocation(LISTEPALIER.get(i).x,LISTEPALIER.get(i).y );
 				}
 			}
 		}
@@ -266,46 +257,44 @@ public  class FenetreJeu extends JFrame implements KeyListener, ActionListener{
 		public void actionPerformed(ActionEvent e) {
 
 			this.setTitle("DoodleJump " + score);
-			monDoodle.support.setLocation(monDoodle.x,monDoodle.y);
-			monDoodle.tombeDoodle();
-			monDoodle.bougeX();
+			MONDOODLE.SUPPORT.setLocation(MONDOODLE.x,MONDOODLE.y);
+			MONDOODLE.tombeDoodle();
+			MONDOODLE.bougeX();
 			bougeEcran();
 			bougePalier();
 			collision();
 			palierDeSecours();
 			checkSortieEcran();
-			checkMort();
-
 		}
 		public void keyPressed (KeyEvent e){
 			switch (e.getKeyCode()) {
 				case KeyEvent.VK_RIGHT:
-					monDoodle.droite= true;
-					monDoodle.stopDroite= false;
-					monDoodle.gauche=false;
-					monDoodle.stopGauche=false;
+					MONDOODLE.droite= true;
+					MONDOODLE.stopDroite= false;
+					MONDOODLE.gauche=false;
+					MONDOODLE.stopGauche=false;
 					break;
 				case KeyEvent.VK_LEFT:
 
-					monDoodle.gauche= true;
-					monDoodle.stopGauche= false;
-					monDoodle.droite= false;
-					monDoodle.stopDroite= false;
+					MONDOODLE.gauche= true;
+					MONDOODLE.stopGauche= false;
+					MONDOODLE.droite= false;
+					MONDOODLE.stopDroite= false;
 					break;
 			}
 		}
 		public void keyReleased (KeyEvent e) {
-			if(e.getKeyCode()== KeyEvent.VK_RIGHT && monDoodle.vitesseX>0) {
-				monDoodle.stopDroite= true;
-				monDoodle.droite= false;
-				monDoodle.stopGauche= false;
-				monDoodle.gauche= false;
+			if(e.getKeyCode()== KeyEvent.VK_RIGHT && MONDOODLE.vitesseX>0) {
+				MONDOODLE.stopDroite= true;
+				MONDOODLE.droite= false;
+				MONDOODLE.stopGauche= false;
+				MONDOODLE.gauche= false;
 			}
-			if(e.getKeyCode()== KeyEvent.VK_LEFT && monDoodle.vitesseX<0) {
-				monDoodle.stopGauche= true;
-				monDoodle.gauche= false;
-				monDoodle.stopDroite= false;
-				monDoodle.droite= false;
+			if(e.getKeyCode()== KeyEvent.VK_LEFT && MONDOODLE.vitesseX<0) {
+				MONDOODLE.stopGauche= true;
+				MONDOODLE.gauche= false;
+				MONDOODLE.stopDroite= false;
+				MONDOODLE.droite= false;
 			}
 		}
 		public void keyTyped (KeyEvent e){

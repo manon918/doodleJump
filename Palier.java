@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-
 
 public class Palier extends Element {
 
@@ -15,7 +13,6 @@ public class Palier extends Element {
         this.type = t;
         palier.setBounds(x, y, width, height);
         palier.setLayout(null);
-
     }
 }
 

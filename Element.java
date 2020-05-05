@@ -6,12 +6,12 @@ public class Element extends JFrame {
     protected int height;
     protected int x;
     protected int y;
-    protected JLabel support;
+    protected final JLabel SUPPORT;
 
     public Element (int x, int y , JLabel support){
         this.x= x;
         this.y= y;
-        this.support=support;
+        this.SUPPORT=support;
     }
     public void setX(int x) {
         this.x = x;
